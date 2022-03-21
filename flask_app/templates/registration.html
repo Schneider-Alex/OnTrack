@@ -1,0 +1,112 @@
+{%extends "layout.html"%}{% block body%}
+<div class="main secondary">
+  <form action="/register/user" method="post" class="form-container">
+    <div class="mb-3">
+      <label for="first_name" class="form-label">First Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="First Name"
+        name="first_name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="last_name" class="form-label">Last Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="last_name"
+        name="last_name"
+        placeholder="Last Name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">email:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="email@email.com"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="password"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="confirm_password" class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="confirm_password"
+        name="confirm_password"
+        placeholder="password"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="user_city" class="form-label">City:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="user_city"
+        name="user_city"
+        placeholder="City"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="user_state" class="form-label">State:</label>
+      <select name="user_state" id="">
+        {% for state in states %}
+        <option value="{{state}}">{{state}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <p>Tell us about you. What instruments do you play? Musical influences?</p>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Bio:</label>
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        name="bio"
+      ></textarea>
+    </div>
+
+    <div id="btn_submit">
+      <a href="/register/user">
+        <button>submit</button>
+      </a>
+    </div>
+    <ul>
+      {% with messages = get_flashed_messages() %}
+      <!-- declare a variable called messages -->
+      {% if messages %}
+      <!-- check if there are any messages -->
+      {% for message in messages %}
+      <!-- loop through the messages -->
+      <li>{{message}}</li>
+      <!-- display each message in a paragraph tag -->
+      {% endfor %} {% endif %} {% endwith %}
+    </ul>
+  </form>
+  <p class="text-center mt-3">
+    <a href="/">home</a>
+  </p>
+</div>
+
+{% endblock %}
