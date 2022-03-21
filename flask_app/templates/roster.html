@@ -1,0 +1,33 @@
+{%extends "layout.html"%}{% block body%}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>First Name</td>
+            <td>last Name</td>
+            <td>email</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% if athletes %} {% for athlete in athletes %}
+        <tr>
+            <td>{{athlete.first_name}}</td>
+            <td>{{athlete.last_name}}</td>
+            <td>{{athlete.email}}</td>
+            <td>
+                <a href="/coach/update/athlete/display/{{athlete.id}}">Edit</a>
+            </td>
+            <td>
+                <a href="/coach/update/athlete/display/{{athlete.id}}">View</a>
+            </td>
+            <td>
+                <a href="#">Delete</a>
+            </td>
+        </tr>
+        {% endfor%} {%else%}
+        <p>Roster is Empty</p>
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

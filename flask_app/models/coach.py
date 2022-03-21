@@ -34,12 +34,12 @@ class Coach:
             return False
         data = cls.parsed_data(data)
         query= '''
-        Insert INTO coaches (first_name, last_name, email, password, )
+        Insert INTO coaches (first_name, last_name, email, password)
         VALUES (%(first_name)s, %(last_name)s, %(email)s,%(password)s)
         ;'''
         coach_id = connectToMySQL(cls.db).query_db(query,data)
-        # session['coach_id'] = coach_id
-        # session['first_name'] = coach.first_name
+        session['coach_id'] = coach_id
+        session['first_name'] = data['first_name']
         # session['coach']=True
         # removed this functionality so that coaches must log in after creating account
         return coach_id
@@ -110,7 +110,7 @@ class Coach:
         if not EMAIL_REGEX.match(input['email']): 
             flash("Invalid email address!")
             is_valid = False   
-        if cls.find_coach_by_email(input):
+        if Coach.get_coach_by_email(input):
             flash('An account already exists with this email')
             is_valid = False
         # if len(input['bio']) < 1:

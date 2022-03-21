@@ -1,0 +1,8 @@
+{%extends "layout.html"%}{% block body%}
+
+<h1>{{session.first_name}}, {{session.coach_id}}</h1>
+
+<a href="/coach/add_athletes">add students</a>
+<a href="/coach/roster/{{session.coach_id}}">View Roster</a>
+
+{% endblock %}
