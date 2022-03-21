@@ -9,7 +9,7 @@ from flask_app.models import coach, post, time
 
 
 class Event:
-    db ='OnTrackERD'
+    db = 'on_track'
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']

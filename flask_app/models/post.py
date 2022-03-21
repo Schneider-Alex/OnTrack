@@ -7,8 +7,8 @@ from flask_app.models import coach
 #test 
 
 
-class post:
-    db = 'OnTrackERD'
+class Post:
+    db = 'on_track'
     def __init__(self, data): 
         self.id = data['id']
         self.content = data['content']
@@ -54,7 +54,7 @@ class post:
                 posts.append(cls(m))
             return posts
         return result
-           
+
 
     @classmethod
     def delete_post(cls, id):

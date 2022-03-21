@@ -12,8 +12,8 @@ PASSWORD_REGEX = re.compile(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$
 NAME_REGEX = re.compile('^(/^[A-Za-z]+$/)')
 
  #CREATE model
-class coach:
-    db = 'OnTrackERD'
+class Coach:
+    db = 'on_track'
     def __init__(self, data): 
         self.id = data['id']
         self.first_name = data['first_name']
@@ -23,6 +23,7 @@ class coach:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.full_name = f"{data['first_name']} {data['last_name']}"
+        self.athletes=[]
         
         
 #CREATE model
@@ -62,10 +63,9 @@ class coach:
         if len(results) < 1:
             return False
         return cls(results[0])
-       
 
     @classmethod
-    def find_by_email(cls, data):
+    def find_coach_by_email(cls, data):
         query= '''
         SELECT *
         FROM coaches
@@ -74,14 +74,11 @@ class coach:
         result =  connectToMySQL(cls.db).query_db(query, data)
         if result:
             result = cls(result[0])
-
         return result
 
-   
 
     @classmethod
     def update_coach(cls, data):
-
         print('here I am')
         query = """
         UPDATE coaches
@@ -89,7 +86,6 @@ class coach:
         WHERE id = %(id)s
         ;"""
         result = connectToMySQL(cls.db).query_db(query, data)
-      
         return result
 
     # Validate 
@@ -111,17 +107,18 @@ class coach:
         if not EMAIL_REGEX.match(input['email']): 
             flash("Invalid email address!")
             is_valid = False   
-        if coach.find_by_email(input):
+        if cls.find_coach_by_email(input):
             flash('An account already exists with this email')
             is_valid = False
-        if len(input['bio']) < 1:
-            flash('bio must enter at least 20 characters')
-            is_valid = False
-        if len(input['coach_city']) < 1:
-            flash('city must enter at least 1 characters')
-            is_valid = False
+        # if len(input['bio']) < 1:
+        #     flash('bio must enter at least 20 characters')
+        #     is_valid = False
+        # if len(input['coach_city']) < 1:
+        #     flash('city must enter at least 1 characters')
+        #     is_valid = False
         ##validation for state selector
         return is_valid
+        
     @staticmethod
     def validate_update(input):
         is_valid = True
@@ -131,16 +128,15 @@ class coach:
         if len(input['last_name']) < 1:
             flash('name must enter at least 1 characters')
             is_valid = False
-        
         if not EMAIL_REGEX.match(input['email']): 
             flash("Invalid email address!")
             is_valid = False   
-        if len(input['bio']) < 1:
-            flash('bio must enter at least 20 characters')
-            is_valid = False
-        if len(input['coach_city']) < 1:
-            flash('city must enter at least 1 characters')
-            is_valid = False
+        # if len(input['bio']) < 1:
+        #     flash('bio must enter at least 20 characters')
+        #     is_valid = False
+        # if len(input['coach_city']) < 1:
+        #     flash('city must enter at least 1 characters')
+        #     is_valid = False
         ##validation for state selector
         return is_valid
         # Check to see if email already in db
@@ -152,6 +148,7 @@ class coach:
             if bcrypt.check_password_hash(coach.password, data['password']):
                 session['coach_id'] = coach.id
                 session['first_name'] = coach.first_name
+                session['coach']=True
                 return True
         flash('Invalid')
         return False
