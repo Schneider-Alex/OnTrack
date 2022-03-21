@@ -3,7 +3,7 @@ from flask import flash
 from flask_app import app
 import re, math
 from datetime import datetime
-from flask_app.models import admin, event
+from flask_app.models import coach, event
 #test 
 
 
