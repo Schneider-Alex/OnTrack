@@ -5,7 +5,7 @@ from flask import flash, session
 from flask_app import app
 import re	# the regex module
 from flask_bcrypt import Bcrypt   
-from flask_app.models import admin, post, time  
+from flask_app.models import coach, post, time  
 
 
 class Event:
