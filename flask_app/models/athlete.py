@@ -87,8 +87,8 @@ class Athlete:
             return False
         data = cls.parsed_data(data)
         query= '''
-        Insert INTO athletes (first_name, last_name, email, password)
-        VALUES (%(first_name)s, %(last_name)s, %(email)s,%(password)s)
+        Insert INTO athletes (first_name, last_name, email, password,coach_id)
+        VALUES (%(first_name)s, %(last_name)s, %(email)s,%(password)s,%(coach_id)s)
         ;'''
         athlete_id = connectToMySQL(cls.db).query_db(query,data)
         # Removed automatic sign in upon registration for athletes 
