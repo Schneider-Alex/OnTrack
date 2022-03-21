@@ -1,0 +1,90 @@
+{%extends "layout.html"%}{% block body%}
+<form action="/update_event/{{event.id}}" method="post" class="form-container">
+    <input type="hidden" name="user_id" value="{{session['user_id']}}" />
+    <input type="hidden" name="id" value="{{event.id}}" />
+
+    <div class="mb-3">
+        <label for="text" class="form-label">Event Name:</label>
+        <input
+            type="text"
+            class="form-control"
+            id="event_name"
+            name="event_name"
+            placeholder="Bluegrass Jam, Free Form, Drum circle"
+            value="{{event.event_name}}"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <label for="text" class="form-label">Location:</label>
+        <input
+            type="text"
+            class="form-control"
+            id="autocomplete"
+            name="location"
+            placeholder="Specific name (Zilker Park, Brewery, etc.)"
+            value="{{event.location}}, {{event.city}}, {{event.state}}, USA"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <input
+            type="description"
+            class="form-control"
+            id="description"
+            name="description"
+            placeholder="description"
+            value="{{event.description}}"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <label for="date" class="form-label">Date:</label>
+        <input
+            type="date"
+            class="form-control"
+            id="date"
+            name="date"
+            min="{{current_day}}"
+            value="{{event.date}}"
+            required
+        />
+        <!-- might have to break date and time in two parts -->
+    </div>
+
+    <div class="mb-3">
+        <label for="start_time" class="form-label">Start time:</label>
+        <input
+            type="time"
+            class="form-control"
+            id="start_time"
+            name="start_time"
+            value="{{event.start_time}}"
+            required
+        />
+    </div>
+
+    <div class="mb-3">
+        <label for="end_time" class="form-label">End time:</label>
+        <input
+            type="time"
+            class="form-control"
+            id="end_time"
+            name="end_time"
+            value="{{event.end_time}}"
+            required
+        />
+    </div>
+
+    <button class="btn-primary" type="submit">Update</button>
+</form>
+{% with messages = get_flashed_messages() %}
+<!-- declare a variable called messages -->
+{% if messages %}
+<!-- check if there are any messages -->
+{% for message in messages %}
+<!-- loop through the messages -->
+<p>{{message}}</p>
+<!-- display each message in a paragraph tag -->
+{% endfor %} {% endif %} {% endwith %} {% endblock %}
