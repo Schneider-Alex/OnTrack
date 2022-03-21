@@ -1,0 +1,29 @@
+Names and Responsibilites: 
+Alex Schneider- Backend, SQL Database Creation/Management, comment/like CRUD,
+
+Justin Fleagle- Front End Design and Functionality, AJAX implentation, HTML/CSS Management
+
+Jordan French- Backend, SQL Querying, comment/like CRUD, times CRUD
+
+Ryan Nally- Admin CRUD functionalities for managing athletes: creating models 
+            and controllers that allow coaches to create and edit team rosters.
+
+Project Title: OnTrack
+Project Stack: Python/Flask
+
+Project Description: This is an application designed for highschool track coaches and their athletes.
+ OnTrack acts as a social network where coaches can post their athletes event time, and season highlights. 
+ Athletes can see their team mates times, comment and like them!
+
+more updates about functionality to come!
+
+MVP Features:
+-Coach account Registration and Login (CRUD)
+-Athlete account Registration and Login (CRUD), athlete accounts created by coaches but signed into by athletes
+-Access to all common US track events (coaches have ability to add more)
+-Coach controlled CRUD of athlete times
+-Coach can creates posts about anything team related or specific highlighted times that athletes have run 
+-Athletes may like and comment on posts 
+
+New Programming Concepts We are Planning to Learn: We want to implement a fair amount of Ajax and if we have time a google map API for events
+
