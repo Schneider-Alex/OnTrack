@@ -1,0 +1,56 @@
+.header {
+  background-color: #333; 
+  margin-bottom: 20px; 
+  color: white;
+}
+.form-style {
+  background-color: #333;
+  padding: 20px;
+  text-shadow: 0px 1px 1px black;
+  box-shadow: 0px 2px 5px #333;
+}
+.border-radius {
+  border-radius: 10px;
+}
+.menu-login {
+  background: #CCCCCC;
+}
+.menu-login:hover {
+  background: rgb(223, 223, 223);
+}
+.gap {
+  gap: 20px;
+}
+
+/* button hovering effects */
+.btn {
+  margin: 10px 0px;
+  border: 1px solid #333;
+  padding: 5px 5px;
+  cursor: pointer;
+  transition: 0.8s;
+  position: relative;
+  box-shadow: 0px 2px 5px #333;
+}
+.btn1{
+  color: #333;
+}
+.btn1:hover{
+  color: #fff;
+  content: "";
+  background: #333;
+  transition: 0.3s;
+}
+
+/* form text area hover effects */
+.text-area {
+  color: white;
+  border: 1px solid #333;
+  background-color: inherit;
+  transition: 0.8s;
+}
+.text-area:hover {
+  color: #333;
+  background: white;
+  transition: 0.3s;
+}
