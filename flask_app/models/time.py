@@ -21,17 +21,24 @@ class Time:
     #CREATE
     @classmethod
     def create_times(cls, data):
-        data = cls.parsed_time_data(data)
-        query= '''
-        Insert INTO coaches (first_name, last_name, email, password)
-        VALUES (%(first_name)s, %(last_name)s, %(email)s,%(password)s)
-        ;'''
-        coach_id = connectToMySQL(cls.db).query_db(query,data)
-        session['coach_id'] = coach_id
-        session['first_name'] = data['first_name']
-        # session['coach']=True
-        # removed this functionality so that coaches must log in after creating account
-        return coach_id
+        data['time'] = cls.parsed_time_data(data['time'])
+        if data['athlete_id4']:
+            query='''
+            INSERT INTO times (time, coach_id, time_id, athlete_id,athlete_id2,athlete_id3,athlete_id4)
+            VALUES (%(time)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s, %(athlete_id4)s);'''
+        elif data['athlete_id3']:
+            query='''
+            INSERT INTO times (time, coach_id, time_id, athlete_id,athlete_id2,athlete_id3)
+            VALUES (%(time)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s);'''
+        elif data['athlete_i2']:
+            query='''
+            INSERT INTO times (time, coach_id, time_id, athlete_id,athlete_id2)
+            VALUES (%(time)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s);'''
+        else:
+            query='''
+            INSERT INTO times (time, coach_id, time_id, athlete_id)
+            VALUES (%(time)s,%(coach_id)s,%(time_id)s, %(athlete_id)s);'''
+        return connectToMySQL(cls.db).query_db(query,data)
 
     #READ
     
@@ -59,11 +66,15 @@ class Time:
 
     @staticmethod
     def parsed_time_data(data):
+        time_ = data['time'].split(':')
+        print(time_)
+        #convert to int if needed
+        time_ = time_[0] * 60 + time_[1]
+        print(time_)
         parsed_data={
-            'athlete_id': data['athlete_id'],
-            'time': data['time'].strip(),
-            'coach_id' : session['coach_id'],
-            'event_id' : data['event_id']
+            
+            'time': time_
+            
         }
         return parsed_data  
 
