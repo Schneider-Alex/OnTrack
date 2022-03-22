@@ -99,12 +99,12 @@ class Post:
     def update_post(cls, data):
         data={
             'content' : data['content'],
-            'time_id' : time['time_id']
+            'id' : data['id']
 
         }
         query = """
         UPDATE posts
-        SET content = %(content)s, time_id = %(time_id)s, updated_at = NOW()
+        SET content = %(content)s, updated_at = NOW()
         WHERE id = %(id)s
         ;"""
         result = connectToMySQL(cls.db).query_db(query, data)

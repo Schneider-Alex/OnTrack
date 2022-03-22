@@ -25,6 +25,6 @@ def edit_post_page(post_id):
 
 @app.route('/post/edit',methods=['POST'])
 def edit_post():
-    
-    return render_template('/dashboard')
+    post.Post.update_post(request.form)
+    return redirect('/dashboard')
 
