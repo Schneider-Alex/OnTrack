@@ -1,41 +1,19 @@
 {%extends "layout.html"%}{% block body%}
-<h1>Update Athlete</h1>
-<form action="/coach/update/athlete" method="post" class="col dashboard-style">
-    <label>Update Athlete</label>
+<h1>Update Post</h1>
+<form action="/post/edit" method="post" class="col dashboard-style">
+    <label>Update Post Details</label>
     <hr class="mb-4" />
     <label
-        >First Name:
-        <input type="text" name="first_name" value="{{athlete.first_name}}" />
+        >Content:
+        <input type="text" name="first_name" value="{{post.content}}" />
     </label>
     <label
-        >Last Name:
-        <input type="text" name="last_name" value="{{athlete.last_name}}" />
+        >Time:
+        <input type="text" name="last_name" value="{{post.last_name}}" />
     </label>
-    <label
-        >Email:
-        <input type="text" name="email" value="{{athlete.email}}" />
-    </label>
-    <label>Password: <input type="password" name="password" /></label>
-    <input type="submit" value="add athlete" />
+    <input type="hidden" name="id" value="{{post.id}}">
+    <input type="submit" value="Update Post" />
 </form>
-coach ID:
-<p>{{session.coach_id}}</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <td>event</td>
-            <td>time</td>
-            <td>date</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{#{athlete_time.event}}</td>
-            <td>{{athlete_time.time}#}</td>
-        </tr>
-    </tbody>
-</table>
 
 <!-- Display times -->
 
