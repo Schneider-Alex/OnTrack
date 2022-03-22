@@ -1,3 +1,17 @@
+body::before {
+  background: linear-gradient(0deg, rgba(46, 41, 75, 0.9), rgba(38, 0, 255, 0.3)), 
+              url("https://www.goodfreephotos.com/albums/sports/female-runners-on-the-race-track.jpg") no-repeat center center fixed;
+  content: '';
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
 .header {
   background-color: #333; 
   margin-bottom: 20px; 
@@ -14,6 +28,7 @@
 }
 .menu-login {
   background: #CCCCCC;
+  padding: 10px 20px;
 }
 .menu-login:hover {
   background: rgb(223, 223, 223);
