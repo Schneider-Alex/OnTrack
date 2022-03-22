@@ -61,13 +61,7 @@ class Athlete:
         if not EMAIL_REGEX.match(input['email']): 
             flash("Invalid email address!")
             is_valid = False   
-        # if len(input['bio']) < 1:
-        #     flash('bio must enter at least 20 characters')
-        #     is_valid = False
-        # if len(input['coach_city']) < 1:
-        #     flash('city must enter at least 1 characters')
-        #     is_valid = False
-        ##validation for state selector
+       
         return is_valid
         
     @staticmethod
@@ -83,17 +77,32 @@ class Athlete:
 
     @classmethod
     def register_athlete(cls, data):
-        if not cls.validate_submission(data):
-            return False
+        ('>>>>>>>>>>i am here')
+        # if not cls.validate_submission(data):
+        #     return False
         data = cls.parsed_data(data)
+        print(data)
         query= '''
-        Insert INTO athletes (first_name, last_name, email, password,coach_id)
+        INSERT INTO athletes (first_name, last_name, email, password, coach_id)
         VALUES (%(first_name)s, %(last_name)s, %(email)s,%(password)s,%(coach_id)s)
         ;'''
         athlete_id = connectToMySQL(cls.db).query_db(query,data)
+        print(athlete_id)
         # Removed automatic sign in upon registration for athletes 
         # because coaches will register athletes and then give them their log in information at a seperate time. 
-        return coach_id
+        return athlete_id
+    
+    @classmethod
+    def get_athletes_by_coach_id(cls, id):
+        data= {'id': id}
+        query = "SELECT * FROM athletes WHERE coach_id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        athletes = []
+        for row in results:
+            athletes.append(cls(row))
+        return athletes
     
     @classmethod
     def find_athlete_by_email(cls, data):
@@ -122,7 +131,7 @@ class Athlete:
     @classmethod
     def get_athlete_by_id(cls, id):
         data= {'id': id}
-        query = "SELECT * FROM coaches WHERE id = %(id)s;"
+        query = "SELECT * FROM athletes WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False

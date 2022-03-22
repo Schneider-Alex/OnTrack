@@ -7,24 +7,59 @@ bcrypt = Bcrypt(app)
 
 
 
-# *************JUST REDIRECTING ALL METHODS TO ROOT ROUTE FOR NOW (SUBJECT TO CHANGE)****************
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/dashboard')
+def dashboard():
+    if 'coach_id' not in session:
+        return redirect('/')
+    return render_template('dashboard.html')
+
 @app.route('/coach/register',methods=['POST'])
 def coach_registration():
-    if coach.Coach.register_coach(request.form)
+    if coach.Coach.register_coach(request.form):
         coach.Coach.login(request.form)
-    return redirect('/')
+    return redirect('/dashboard')
     
-@app.route('/coach/create/athlete_account',methods=['POST'])
-def create_athlete_account():
-    athlete.Athlete.register_athlete(request.form)
-    return redirect('/')
-
 @app.route('/coach/login',methods=['POST'])
 def coach_login():
     coach.Coach.login(request.form)
-    return redirect('/')
+    return redirect('/dashboard')
+    
+@app.route('/coach/roster/<int:id>')
+def view_roster(id):
+    roster = athlete.Athlete.get_athletes_by_coach_id(id)
+    return render_template('roster.html', athletes = roster)
+
+@app.route('/coach/add_athletes') #from dashboard
+def add_athletes():
+    return render_template('add_athletes.html')
+
+
+@app.route('/create_athlete_account', methods=['POST'])
+def create_athlete_account():
+    print(request.form['first_name'])
+    this_athlete = athlete.Athlete.register_athlete(request.form)
+    print('>>>>>>>>>>>')
+    return redirect(f"/success/{this_athlete}")
+
+@app.route('/success/<int:id>')
+def success(id):
+    return render_template('success.html', athlete = athlete.Athlete.get_athlete_by_id(id))
+
+@app.route('/coach/update/athlete/display/<int:id>')
+def display_for_update(id):
+    this_athlete = athlete.Athlete.get_athlete_by_id(id)
+    # athlete_times - athlete.Athlete.get  ########## get times by athlete id
+    return render_template('update_athlete.html', athlete = this_athlete)
+
+@app.route('/coach/update/athlete')
+def update_athlete():
+    athlete.Athlete.update_athlete(request.form)
+    #also need to update times
+    return redirect('/') #confirmation page
+
+
+
