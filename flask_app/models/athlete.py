@@ -95,7 +95,9 @@ class Athlete:
     @classmethod
     def get_athletes_by_coach_id(cls, id):
         data= {'id': id}
-        query = "SELECT * FROM athletes WHERE coach_id = %(id)s;"
+        query = """SELECT * FROM athletes
+        WHERE coach_id = %(id)s
+        ORDER BY last_name;"""
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False
