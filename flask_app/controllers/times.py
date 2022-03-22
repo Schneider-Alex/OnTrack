@@ -10,6 +10,8 @@ def create_times_page():
     events_ = event.Event.get_all_events()
     return render_template('create_times.html', athletes = athletes_, events = events_)
 
-@app.route('/create/new/time')
+@app.route('/create/new/time', methods=['POST'])
 def create_new_times():
-    return redirect('/')
+    print(request.form)
+    time.Time.create_times(request.form)
+    return redirect('/dashboard')

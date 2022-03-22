@@ -1,7 +1,7 @@
 from flask_app import app
 from flask import render_template, redirect, request, session, flash, url_for
-from flask_app.models import coach, post, event, athlete, post
-from flask_app.controllers import comments, events, posts
+from flask_app.models import coach, post, event, athlete, time
+from flask_app.controllers import comments, events, posts, times
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -52,8 +52,10 @@ def success(id):
 @app.route('/coach/update/athlete/display/<int:id>')
 def display_for_update(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
+    athlete_times = time.Time.get_times_by_athlete_id(id)
+    print(athlete_times)
     # athlete_times - athlete.Athlete.get  ########## get times by athlete id
-    return render_template('update_athlete.html', athlete = this_athlete)
+    return render_template('update_athlete.html', athlete = this_athlete, athlete_times= athlete_times)
 
 @app.route('/coach/update/athlete')
 def update_athlete():

@@ -16,7 +16,7 @@
         <input type="text" name="email" value="{{athlete.email}}" />
     </label>
     <label>Password: <input type="password" name="password" /></label>
-    <input type="submit" value="add athlete" />
+    <input type="submit" value="update athlete" />
 </form>
 coach ID:
 <p>{{session.coach_id}}</p>
@@ -30,12 +30,17 @@ coach ID:
         </tr>
     </thead>
     <tbody>
+        {%if athlete_times %} {% for athlete_time in athlete_times %}
         <tr>
-            <td>{#{athlete_time.event}}</td>
-            <td>{{athlete_time.time}#}</td>
+            <td>{{athlete_time.name}}</td>
+            <td>{{athlete_time.time}}</td>
+            <td>{{athlete_time.date}}</td>
         </tr>
+        {% endfor%} {% else %}
     </tbody>
 </table>
+<p>No times to display</p>
+{%endif%}
 
 <!-- Display times -->
 

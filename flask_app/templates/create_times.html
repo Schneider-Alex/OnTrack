@@ -1,7 +1,8 @@
 {%extends "layout.html"%}{% block body%}
 
-<form action="//create/new/time" method="post" class="col dashboard-style">
+<form action="/create/new/time" method="post" class="col dashboard-style">
     <label>Add time</label>
+    <input type="hidden" name="coach_id" id="" value="{{session.coach_id}}" />
     <hr class="mb-4" />
     <select name="athlete_id" id="">
         <!-- may need 'if athletes' -->
@@ -32,6 +33,12 @@
             step="0.01"
         />
     </label>
+
+    <label
+        >date:
+        <input type="date" required name="date" />
+    </label>
+    <input type="submit" name="" id="" value="Add Time" />
 </form>
 coach ID:
 <p>{{session.coach_id}}</p>
