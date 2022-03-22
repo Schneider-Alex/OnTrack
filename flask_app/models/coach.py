@@ -102,7 +102,7 @@ class Coach:
             flash('name must enter at least 1 characters')
             is_valid = False
         if not PASSWORD_REGEX.match(input['password']):
-            flash('invalid password')
+            flash('password needs to be at least 8 characters and contains at least one number, one uppercase character,  and one special character'')
             is_valid = False
         if input['password'] != input['confirm_password']:
             flash('passwords do not match')
