@@ -19,4 +19,12 @@ def delete_post(post_id):
     post.Post.delete_post(post_id)
     return redirect('/dashboard')
 
+@app.route('/post/<int:post_id>/edit_page')
+def edit_post_page(post_id):
+    return render_template('update_post.html', post=post.Post.get_post_by_id(post_id))
+
+@app.route('/post/edit',methods=['POST'])
+def edit_post():
+    
+    return render_template('/dashboard')
 

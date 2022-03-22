@@ -3,7 +3,7 @@ from flask import flash, session
 from flask_app import app
 import re, math
 from datetime import datetime
-from flask_app.models import coach
+from flask_app.models import coach, time
 #test 
 
 
@@ -16,7 +16,8 @@ class Post:
         self.time_id = data['time_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        
+        # self.time = time.Time.get_time_by_id(self.time_id) 
+        # self.time may need some editing and tampering
 
 #displays how long ago post was made
     def timestamp(self):
@@ -85,6 +86,29 @@ class Post:
             return posts
         return result
 
+    @classmethod
+    def get_post_by_id(cls, id):
+        data= {'id': id}
+        query = '''SELECT * FROM posts WHERE id = %(id)s;'''
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
+    
+    @classmethod
+    def update_post(cls, data):
+        data={
+            'content' : data['content'],
+            'time_id' : time['time_id']
+
+        }
+        query = """
+        UPDATE posts
+        SET content = %(content)s, time_id = %(time_id)s, updated_at = NOW()
+        WHERE id = %(id)s
+        ;"""
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return result
 
     @classmethod
     def delete_post(cls, id):
