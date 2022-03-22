@@ -61,7 +61,7 @@ class Coach:
     @classmethod
     def get_coach_by_id(cls, id):
         data= {'id': id}
-        query = "SELECT * FROM coaches WHERE id = %(id)s;"
+        query = '''SELECT * FROM coaches WHERE id = %(id)s;'''
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False
