@@ -1,5 +1,5 @@
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
-from flask import flash
+from flask import flash, session
 from flask_app import app
 import re, math
 from datetime import datetime
@@ -36,22 +36,25 @@ class Post:
     #CREATE
     @classmethod
     def create_post(cls, data):
-        if data['athlete_id4']:
-            query='''
-            INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3,athlete_id4)
-            VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s, %(athlete_id4)s);'''
-        elif data['athlete_id3']:
-            query='''
-            INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3)
-            VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s);'''
-        elif data['athlete_i2']:
-            query='''
-            INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2)
-            VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s);'''
-        else:
-            query='''
-            INSERT INTO posts (content, coach_id, time_id, athlete_id)
-            VALUES (%(content)s,%(coach_id)s,%(time_id)s, %(athlete_id)s);'''
+        # if data['athlete_id4']:
+        #     query='''
+        #     INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3,athlete_id4)
+        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s, %(athlete_id4)s);'''
+        # elif data['athlete_id3']:
+        #     query='''
+        #     INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3)
+        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s);'''
+        # elif data['athlete_i2']:
+        #     query='''
+        #     INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2)
+        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s);'''
+        # else:
+        #     query='''
+        #     INSERT INTO posts (content, coach_id, time_id, athlete_id)
+        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s, %(athlete_id)s);'''
+        query="""INSERT INTO posts (content, coach_id, time_id)
+        VALUES (%(content)s,%(coach_id)s,%(time_id)s);
+        """
         return connectToMySQL(cls.db).query_db(query,data)
 
     #READ
@@ -59,6 +62,20 @@ class Post:
     def get_all_posts(cls, id):
         query='''SELECT * FROM posts
         WHERE coach_ id = %(coach_id)s;'''  
+
+        result= connectToMySQL(cls.db).query_db(query, data)
+        if result:
+            posts=[]
+            for m in result:
+                posts.append(cls(m))
+            return posts
+        return result
+
+    @classmethod
+    def get_all_logged_in_coaches_posts(cls):
+        data={"id": session['coach_id']}
+        query='''SELECT * FROM posts
+        WHERE coach_id = %(coach_id)s;'''  
 
         result= connectToMySQL(cls.db).query_db(query, data)
         if result:
