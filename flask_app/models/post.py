@@ -16,6 +16,7 @@ class Post:
         self.time_id = data['time_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        
 
 #displays how long ago post was made
     def timestamp(self):
@@ -35,10 +36,22 @@ class Post:
     #CREATE
     @classmethod
     def create_post(cls, data):
-        
-        query='''
-        INSERT INTO posts (content, coach_id, time_id)
-        VALUES (%(content)s,%(coach_id)s,%(time_id)s);'''
+        if data['athlete_id4']:
+            query='''
+            INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3,athlete_id4)
+            VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s, %(athlete_id4)s);'''
+        elif data['athlete_id3']:
+            query='''
+            INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3)
+            VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s);'''
+        elif data['athlete_i2']:
+            query='''
+            INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2)
+            VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s);'''
+        else:
+            query='''
+            INSERT INTO posts (content, coach_id, time_id, athlete_id)
+            VALUES (%(content)s,%(coach_id)s,%(time_id)s, %(athlete_id)s);'''
         return connectToMySQL(cls.db).query_db(query,data)
 
     #READ
