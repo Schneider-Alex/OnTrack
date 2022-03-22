@@ -21,6 +21,22 @@
 coach ID:
 <p>{{session.coach_id}}</p>
 
+<table class="table">
+    <thead>
+        <tr>
+            <td>event</td>
+            <td>time</td>
+            <td>date</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{#{athlete_time.event}}</td>
+            <td>{{athlete_time.time}#}</td>
+        </tr>
+    </tbody>
+</table>
+
 <!-- Display times -->
 
 {% with messages = get_flashed_messages() %}

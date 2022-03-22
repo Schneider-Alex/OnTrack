@@ -1,4 +1,6 @@
 
+config
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -46,7 +48,7 @@ htmlcov/
 .coverage.*
 .cache
 nosetests.xml
-coverage.xml
+configcoverage.xml
 *.cover
 *.py,cover
 .hypothesis/
