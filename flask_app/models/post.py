@@ -73,7 +73,7 @@ class Post:
 
     @classmethod
     def get_all_logged_in_coaches_posts(cls):
-        data={"id": session['coach_id']}
+        data={"coach_id": session['coach_id']}
         query='''SELECT * FROM posts
         WHERE coach_id = %(coach_id)s;'''  
 

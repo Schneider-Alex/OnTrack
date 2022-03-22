@@ -12,7 +12,11 @@ def create_post_page(coach_id):
 @app.route('/coach/create_post/<int:coach_id>',methods=['POST'])
 def create_post(coach_id):
     post.Post.create_post(request.form)
-    print('tried to create post!')
+    return redirect('/dashboard')
+
+@app.route('/post/<int:post_id>/delete')
+def delete_post(post_id):
+    post.Post.delete_post(post_id)
     return redirect('/dashboard')
 
 

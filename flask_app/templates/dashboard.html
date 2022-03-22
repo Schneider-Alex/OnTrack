@@ -6,10 +6,21 @@
 <a href="/coach/roster/{{session.coach_id}}">View Roster</a>
 <a href="/coach/create_post_page/{{session.coach_id}}">Create New Post</a>
 
-{%if session%}
-{{coach_posts}}
-{%endif%}
+{%if coach_posts%}
+<table>
+    <tr>
+        <th>Post Content</th>
+        <th>Actions</th>
+    </tr>
+{%for post in coach_posts%}
+    <tr>
+        <td>{{post.content}}</td>
+        <td><a href="/post{{post.id}}/edit">Edit</a> - <a href="/post/{{post.id}}/delete">Delete</a></td>
 
+    </tr>
+{%endfor%}
+</table>
+{%endif%}
 <p>Add times</p>
 <a href="/coach/create/times">add times</a>
 
