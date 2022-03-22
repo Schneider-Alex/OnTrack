@@ -1,9 +1,13 @@
-{%extends "layout.html"%}{% block body%}
+{%extends "layout.html"%}{%block body%}
 
 <h1>{{session.first_name}}, {{session.coach_id}}</h1>
 
 <a href="/coach/add_athletes">add students</a>
 <a href="/coach/roster/{{session.coach_id}}">View Roster</a>
-<a href="/coach/create_post/{{session.coach_id}}">Create New Post</a>
+<a href="/coach/create_post_page/{{session.coach_id}}">Create New Post</a>
 
-{% endblock %}
+{%if session%}
+{{coach_posts}}
+{%endif%}
+
+{%endblock%}

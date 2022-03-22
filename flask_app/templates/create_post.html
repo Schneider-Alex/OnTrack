@@ -1,0 +1,51 @@
+{%extends "layout.html"%}{% block body%} 
+
+
+
+<form
+action="/coach/create_post/{{session['coach_id']}}"
+method="post"
+class="col dashboard-style"
+>
+<label>New Post</label>
+<hr class="mb-4" />
+<label
+    >Content:
+    <input type="text" name="content" required/>
+</label>
+<label
+    >Time:(This is a place holder for now, will update with select box for times when Ryan has created them)
+    <input type="text" name="time_id" value="1" required/>
+</label>
+<input type="hidden" name="coach_id" value="{{session['coach_id']}}">
+<input type="submit" value="Create Post" />
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% with messages =
+get_flashed_messages() %}
+<!-- declare a variable called messages -->
+{% if messages %}
+<!-- check if there are any messages -->
+{% for message in messages %}
+<!-- loop through the messages -->
+<p>{{message}}</p>
+<!-- display each message in a paragraph tag -->
+{% endfor %} {% endif %} {% endwith %} {% endblock %}
+
