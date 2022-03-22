@@ -1,0 +1,39 @@
+{%extends "layout.html"%}{% block body%}
+
+<form action="//create/new/time" method="post" class="col dashboard-style">
+    <label>Add time</label>
+    <hr class="mb-4" />
+    <select name="athlete_id" id="">
+        <!-- may need 'if athletes' -->
+        {% for athlete in athletes %}
+        <option value="{{athlete.id}}">
+            {{athlete.last_name}}, {{athlete.first_name}}
+        </option>
+        {% endfor %}
+    </select>
+    <!-- need option to display multiple athletes, Use JS -->
+    <label
+        >Event:
+        <select name="event_id" id="">
+            <!-- may need 'if events' -->
+            {% for event in events %}
+            <option value="{{event.id}}">{{event.name}}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label
+        >time:
+        <input
+            type="number"
+            required
+            name="time"
+            min="0"
+            value="0"
+            step="0.01"
+        />
+    </label>
+</form>
+coach ID:
+<p>{{session.coach_id}}</p>
+
+{% endblock %}
