@@ -26,6 +26,7 @@ def coach_registration():
 @app.route('/coach/login',methods=['POST'])
 def coach_login():
     coach.Coach.login(request.form)
+    # print("??????????????", request.form)
     return redirect('/dashboard')
     
 @app.route('/coach/roster/<int:id>')

@@ -11,11 +11,13 @@
     <tr>
         <th>Post Content</th>
         <th>Actions</th>
+        <th>Comments/likes</th>
     </tr>
 {%for post in coach_posts%}
     <tr>
         <td>{{post.content}}</td>
         <td><a href="/post/{{post.id}}/edit_page">Edit</a> - <a href="/post/{{post.id}}/delete">Delete</a></td>
+        <td><a href="/post/{{post.id}}/comment">Comment</a> - <a href="/post/{{post.id}}/like">Like</a></td>
 
     </tr>
 {%endfor%}
