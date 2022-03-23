@@ -27,14 +27,48 @@ coach ID:
             <td>event</td>
             <td>time</td>
             <td>date</td>
+            <td>Action</td>
         </tr>
     </thead>
     <tbody>
         {%if athlete_times %} {% for athlete_time in athlete_times %}
         <tr>
-            <td>{{athlete_time.name}}</td>
-            <td>{{athlete_time.time}}</td>
-            <td>{{athlete_time.date}}</td>
+            <form action="/time/update" method="post">
+                <input type="hidden" name="id" value="{{athlete_time.id}}" />
+                <td>
+                    <select name="event_id" id="">
+                        {% for event in events %} {% if event.name ==
+                        athlete_time.name%}
+                        <option value="{{event.id}}" selected>
+                            {{event.name}}
+                        </option>
+                        {% else %}
+                        <option value="{{event.id}}">{{event.name}}</option>
+                        {% endif %} {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <input
+                        type="number"
+                        name="time"
+                        id=""
+                        value="{{athlete_time.time}}"
+                    />
+                </td>
+                <td>
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="date"
+                        name="date"
+                        value="{{athlete_time.date}}"
+                        required
+                    />
+                </td>
+                <td>
+                    <input type="submit" name="" id="" value="update-times" />
+                </td>
+            </form>
         </tr>
         {% endfor%} {% else %}
     </tbody>

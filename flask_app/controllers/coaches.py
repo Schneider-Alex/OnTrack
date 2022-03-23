@@ -25,8 +25,13 @@ def coach_registration():
     
 @app.route('/coach/login',methods=['POST'])
 def coach_login():
-    coach.Coach.login(request.form)
-    return redirect('/dashboard')
+    data = {
+        "email": request.form['email'],
+        "password" : request.form['password']
+    }
+    if coach.Coach.login(data):
+        return redirect('/dashboard')
+    return redirect('/')
     
 @app.route('/coach/roster/<int:id>')
 def view_roster(id):
@@ -53,15 +58,22 @@ def success(id):
 def display_for_update(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
     athlete_times = time.Time.get_times_by_athlete_id(id)
+    events_ = event.Event.get_all_events()
     print(athlete_times)
     # athlete_times - athlete.Athlete.get  ########## get times by athlete id
-    return render_template('update_athlete.html', athlete = this_athlete, athlete_times= athlete_times)
+    return render_template('update_athlete.html', athlete = this_athlete, athlete_times= athlete_times, events= events_)
 
 @app.route('/coach/update/athlete')
 def update_athlete():
     athlete.Athlete.update_athlete(request.form)
     #also need to update times
     return redirect('/') #confirmation page
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 
