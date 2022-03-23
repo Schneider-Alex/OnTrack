@@ -145,7 +145,7 @@ class Athlete:
         athlete = Athlete.get_athlete_by_email(data)
         if athlete:
             # this should change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if not bcrypt.check_password_hash(athlete.password, data['password']):
+            if bcrypt.check_password_hash(athlete.password, data['password']):
                 print('hello')
                 session['athlete_id'] = athlete.id
                 session['coach_id'] = athlete.coach_id

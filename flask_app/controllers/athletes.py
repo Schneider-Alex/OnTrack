@@ -9,4 +9,4 @@ bcrypt = Bcrypt(app)
 def athlete_login():
     if athlete.Athlete.login(request.form):
         return redirect('/dashboard')
-    return ('/')
+    return redirect ('/')

@@ -13,16 +13,17 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    # if 'coach_id' not in session:
-    #     return redirect('/')
+    if not session:
+        return redirect('/')
     return render_template('dashboard.html', coach_posts=post.Post.get_all_coaches_posts())
 
 @app.route('/coach/register',methods=['POST'])
 def coach_registration():
     if coach.Coach.register_coach(request.form):
         coach.Coach.login(request.form)
-    return redirect('/dashboard')
-    
+        return redirect('/dashboard')
+    return redirect('/')
+
 @app.route('/coach/login',methods=['POST'])
 def coach_login():
     if coach.Coach.login(request.form):

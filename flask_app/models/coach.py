@@ -40,8 +40,8 @@ class Coach:
         coach_id = connectToMySQL(cls.db).query_db(query,data)
         session['coach_id'] = coach_id
         session['first_name'] = data['first_name']
-        # session['coach']=True
-        # removed this functionality so that coaches must log in after creating account
+        # # session['coach']=True
+        # # removed this functionality so that coaches must log in after creating account
         return coach_id
 
 
@@ -166,7 +166,7 @@ class Coach:
         coach = Coach.get_coach_by_email(data)
         if coach:
             # this should change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if not bcrypt.check_password_hash(coach.password, data['password']):
+            if bcrypt.check_password_hash(coach.password, data['password']):
                 session['coach_id'] = coach.id
                 session['first_name'] = coach.first_name
                 session['coach'] = 1
