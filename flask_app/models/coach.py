@@ -169,7 +169,7 @@ class Coach:
             if not bcrypt.check_password_hash(coach.password, data['password']):
                 session['coach_id'] = coach.id
                 session['first_name'] = coach.first_name
-                session['coach'] = True
+                session['coach'] = 1
                 return True
         flash('Invalid', 'login')
         return False

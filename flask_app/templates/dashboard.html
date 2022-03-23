@@ -1,23 +1,34 @@
 {%extends "layout.html"%}{%block body%}
 
+
 <h1>{{session.first_name}}, {{session.coach_id}}</h1>
 
+{%if session.coach%}
 <a href="/coach/add_athletes">add students</a>
 <a href="/coach/roster/{{session.coach_id}}">View Roster</a>
 <a href="/coach/create_post_page/{{session.coach_id}}">Create New Post</a>
+{%endif%}
 
 {%if coach_posts%}
 <table>
     <tr>
         <th>Post Content</th>
+        {%if session.coach%}
         <th>Actions</th>
+        {%endif%}
+        {%if session.athlete%}
         <th>Comments/likes</th>
+        {%endif%}
     </tr>
 {%for post in coach_posts%}
     <tr>
         <td>{{post.content}}</td>
+        {%if session.coach%}
         <td><a href="/post/{{post.id}}/edit_page">Edit</a> - <a href="/post/{{post.id}}/delete">Delete</a></td>
+        {%endif%}
+        {%if session.athlete%}
         <td><a href="/post/{{post.id}}/comment">Comment</a> - <a href="/post/{{post.id}}/like">Like</a></td>
+        {%endif%}
 
     </tr>
 {%endfor%}
