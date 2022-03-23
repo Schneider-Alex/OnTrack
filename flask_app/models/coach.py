@@ -144,10 +144,28 @@ class Coach:
         return is_valid
         # Check to see if email already in db
 
-    @staticmethod
-    def login(data):
+    # @classmethod
+    # def login(cls, form):
+    #     query = """SELECT * FROM coaches WHERE email =  %(email)s"""
+    #     results = connectToMySQL(cls.db).query_db(query, form)
+    #     print(results)
+    #     if len(results)<1:
+    #         flash('Username or Password Incorrect', 'login')
+    #         return False
+    #     elif not bcrypt.check_password_hash(results[0]['password'], form['password'] ):
+    #         flash('bcrypt', 'login')
+    #         return False
+    #     coach=cls(results[0])
+    #     session['coach_id'] = coach.id
+    #     session['first_name'] = coach.first_name
+    #     session['coach'] = True
+    #     return True
+
+    @classmethod
+    def login(cls,data):
         coach = Coach.get_coach_by_email(data)
         if coach:
+            # this should change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if not bcrypt.check_password_hash(coach.password, data['password']):
                 session['coach_id'] = coach.id
                 session['first_name'] = coach.first_name
