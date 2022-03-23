@@ -30,7 +30,7 @@ def edit_post():
 
 @app.route('/post/<int:post_id>/like',methods=['POST'])
 def like_post(post_id):
-    if session['athlete_id']:
+    if session['athlete']:
         post.Post.athlete_like_post(post_id)
         return redirect('/dashboard')
     flash['Only Athletes May Like Posts']
