@@ -1,5 +1,5 @@
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
-from flask import flash, session
+from flask import flash, session, request
 from flask_app import app
 import re	# the regex module
 from flask_bcrypt import Bcrypt   
@@ -96,28 +96,28 @@ class Coach:
     def validate_submission(input):
         is_valid = True
         if len(input['first_name']) < 1:
-            flash('name must enter at least 1 characters')
+            flash('name must enter at least 1 characters', 'register')
             is_valid = False
         if len(input['last_name']) < 1:
-            flash('name must enter at least 1 characters')
+            flash('name must enter at least 1 characters', 'register')
             is_valid = False
         if not PASSWORD_REGEX.match(input['password']):
-            flash('password needs to be at least 8 characters and contains at least one number, one uppercase character,  and one special character')
+            flash('password needs to be at least 8 characters and contains at least one number, one uppercase character,  and one special character', 'register')
             is_valid = False
         if input['password'] != input['confirm_password']:
-            flash('passwords do not match')
+            flash('passwords do not match', 'register')
             is_valid = False
         if not EMAIL_REGEX.match(input['email']): 
-            flash("Invalid email address!")
+            flash("Invalid email address!", 'register')
             is_valid = False   
         if Coach.get_coach_by_email(input):
-            flash('An account already exists with this email')
+            flash('An account already exists with this email', 'register')
             is_valid = False
         # if len(input['bio']) < 1:
-        #     flash('bio must enter at least 20 characters')
+        #     flash('bio must enter at least 20 characters', 'register')
         #     is_valid = False
         # if len(input['coach_city']) < 1:
-        #     flash('city must enter at least 1 characters')
+        #     flash('city must enter at least 1 characters', 'register')
         #     is_valid = False
         ##validation for state selector
         return is_valid
@@ -126,13 +126,13 @@ class Coach:
     def validate_update(input):
         is_valid = True
         if len(input['first_name']) < 1:
-            flash('name must enter at least 1 characters')
+            flash('name must enter at least 1 characters', 'login')
             is_valid = False
         if len(input['last_name']) < 1:
-            flash('name must enter at least 1 characters')
+            flash('name must enter at least 1 characters', 'login')
             is_valid = False
         if not EMAIL_REGEX.match(input['email']): 
-            flash("Invalid email address!")
+            flash("Invalid email address!", 'login')
             is_valid = False   
         # if len(input['bio']) < 1:
         #     flash('bio must enter at least 20 characters')
@@ -146,14 +146,14 @@ class Coach:
 
     @staticmethod
     def login(data):
-        coach = Coach.get_coach_by_email(data['email'])
+        coach = Coach.get_coach_by_email(data)
         if coach:
-            if bcrypt.check_password_hash(coach.password, data['password']):
+            if not bcrypt.check_password_hash(coach.password, data['password']):
                 session['coach_id'] = coach.id
                 session['first_name'] = coach.first_name
-                session['coach']=True
+                session['coach'] = True
                 return True
-        flash('Invalid')
+        flash('Invalid', 'login')
         return False
 
         
