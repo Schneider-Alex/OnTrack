@@ -13,9 +13,9 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    if 'coach_id' not in session:
-        return redirect('/')
-    return render_template('dashboard.html', coach_posts=post.Post.get_all_logged_in_coaches_posts())
+    # if 'coach_id' not in session:
+    #     return redirect('/')
+    return render_template('dashboard.html', coach_posts=post.Post.get_all_coaches_posts())
 
 @app.route('/coach/register',methods=['POST'])
 def coach_registration():
@@ -25,11 +25,9 @@ def coach_registration():
     
 @app.route('/coach/login',methods=['POST'])
 def coach_login():
-
-
-    coach.Coach.login(request.form)
-    # print("??????????????", request.form)
-    return redirect('/dashboard')
+    if coach.Coach.login(request.form):
+        return redirect('/dashboard')
+    return redirect('/')
 
     
 @app.route('/coach/roster/<int:id>')

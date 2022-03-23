@@ -28,3 +28,11 @@ def edit_post():
     post.Post.update_post(request.form)
     return redirect('/dashboard')
 
+@app.route('/post/<int:post_id>/like',methods=['POST'])
+def like_post(post_id):
+    if session['athlete_id']:
+        post.Post.athlete_like_post(post_id)
+        return redirect('/dashboard')
+    flash['Only Athletes May Like Posts']
+    return redirect('/dashboard')
+
