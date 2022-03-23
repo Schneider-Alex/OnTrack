@@ -61,7 +61,7 @@ class Time:
     def get_times_by_athlete_id(cls, id):
         data = {'athlete_id': id,
                 'coach_id' : session['coach_id']}
-        query = '''SELECT times.time, times.date, events.name FROM times
+        query = '''SELECT times.time, times.date, times.id, times.event_id, events.name  FROM times
         JOIN events ON events.id = times.event_id
         WHERE times.athlete_id = %(athlete_id)s
         AND times.coach_id = %(coach_id)s;'''
@@ -73,14 +73,31 @@ class Time:
         for row in results:
             this_time = {'time': row['time'],
                         'name': row['name'],
-                        'date' : row['date']}
+                        'date' : row['date'],
+                        'id' : row['id']
+                        }
             times.append(this_time)
-        
+        print('!!!!!@@@@', times)
         return times
     #coach id in hidden input
    
     @classmethod
     def desc_times_by_event(cls, id):
+        pass
+
+
+    #UPDATE
+    @classmethod
+    def update_time(cls, data):
+        query='''UPDATE times
+        SET time = %(time)s, date = %(date)s,  event_id = %(event_id)s
+        WHERE id = %(id)s'''
+        result = connectToMySQL(cls.db).query_db(query, data)
+        print('>>>>>>>>>',result)
+        return result
+
+    @classmethod
+    def delete_time(cls, id):
         pass
 
     # @staticmethod
