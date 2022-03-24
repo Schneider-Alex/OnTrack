@@ -10,7 +10,9 @@
         </select>
         <button type="submit">Comment</button>
     </form>
-    {% for comment in all_comments %}
-        <p>{{comment.comment}}</p>
-    {% endfor %}
+    {% if all_comments %}
+        {% for comment in all_comments %}
+            <p>{{comment.comment}}</p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
