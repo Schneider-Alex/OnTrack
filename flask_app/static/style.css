@@ -1,7 +1,4 @@
-* {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.homepage::before {
+.index::before {
   background: linear-gradient(0deg, rgba(46, 41, 75, 0.9), rgba(38, 0, 255, 0.3)), 
               url("https://www.goodfreephotos.com/albums/sports/female-runners-on-the-race-track.jpg") no-repeat center center fixed;
   content: '';
@@ -22,7 +19,7 @@
 }
 .form-style {
   background-color: #333;
-  padding: 20px;
+  padding: 10px;
   text-shadow: 0px 1px 1px black;
   box-shadow: 0px 2px 5px #333;
 }
@@ -57,6 +54,31 @@
   color: #fff;
   content: "";
   background: #333;
+  transition: 0.3s;
+}
+.btn2{
+  color: #fff;
+  padding: 0px;
+  margin: 0px;
+  cursor: pointer;
+}
+.btn2:hover{
+  color: gray;
+  content: "";
+  background: transparent;
+  transition: 0.3s;
+}
+.btn3{
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 0px 5px;
+  margin: 0px;
+}
+.btn3:hover{
+  color: gray;
+  border: 2px solid gray;
+  content: "";
+  background: transparent;
   transition: 0.3s;
 }
 
