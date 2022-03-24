@@ -10,6 +10,7 @@ def athlete_login():
     if athlete.Athlete.login(request.form):
         return redirect('/dashboard')
     return redirect ('/')
+    
 @app.route('/athlete/view/<int:id>')
 def athlete_view_info(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
