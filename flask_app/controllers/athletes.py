@@ -14,5 +14,5 @@ def athlete_login():
 @app.route('/athlete/view/<int:id>')
 def athlete_view_info(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
-    athletes_times = time.Time.get_time_by_id(id)
+    athletes_times = time.Time.get_time_by_athlete_id(id)
     return render_template('view_athlete_info.html', athlete=this_athlete, times=athletes_times)

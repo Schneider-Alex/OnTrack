@@ -62,7 +62,6 @@ class Athlete:
         if not EMAIL_REGEX.match(input['email']): 
             flash("Invalid email address!")
             is_valid = False   
-       
         return is_valid
         
     @staticmethod
@@ -106,7 +105,26 @@ class Athlete:
         for row in results:
             athletes.append(cls(row))
         return athletes
+
+    @classmethod
+    def get_all_athletes_teammates(cls, coach_id, id):
+        data= {
+            'id': id,
+            'coach_id':coach_id
+        }
+
+        query = """SELECT * FROM athletes
+        WHERE coach_id = %(coach_id)s AND id <> %(id)s
+        ORDER BY last_name;"""
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        athletes = []
+        for row in results:
+            athletes.append(cls(row))
+        return athletes
     #######Should display by order of last name
+
     @classmethod
     def get_athlete_by_email(cls, data):
         query= '''
@@ -151,6 +169,7 @@ class Athlete:
                 session['coach_id'] = athlete.coach_id
                 session['first_name'] = athlete.first_name
                 session['athlete'] = 1
+                session['coach']=0
                 return True
         flash('Invalid', 'login')
         return False

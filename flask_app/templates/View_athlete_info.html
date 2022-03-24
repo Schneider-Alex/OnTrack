@@ -1,0 +1,47 @@
+{%extends "layout.html"%}{% block body%}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>First Name</td>
+            <td>last Name</td>
+            <td>email</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% if athlete%}
+        <tr>
+            <td>{{athlete.first_name}}</td>
+            <td>{{athlete.last_name}}</td>
+            <td>{{athlete.email}}</td>
+            {%if session['coach']%}
+            <td>
+                <a href="/coach/update/athlete/display/{{athlete.id}}">Edit</a>
+                <a href="/coach/update/athlete/display/{{athlete.id}}">View</a>
+                <a href="#">Delete</a>
+            </td>
+            {%endif%}
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{%if times%}
+    <table class="table">
+        {%for time in times%}
+            <tr>
+                <td>Event</td>
+                <td>Date</td>
+                <td>Time</td>
+
+            </tr>
+            <tr>
+                <td>{{time.event}}</td>
+                <td>{{time.date}}</td>
+                <td>{{time.time}}</td>
+            </tr>
+        {%endfor%}
+    </table>
+
+{%endif%}
+
+{% endblock %}
