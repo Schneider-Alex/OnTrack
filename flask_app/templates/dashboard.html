@@ -3,11 +3,12 @@
 
 <h1>{{session.first_name}}, {{session.coach_id}}</h1>
 
+
 {%if session.coach%}
-<button class="btn btn1"><a href="/coach/add_athletes" style="text-decoration: none; color: black;">Add Student</a></button>
-<button  class="btn btn1"><a href="coach/roster/{{session.coach_id}}" style="text-decoration: none; color: black;">View Roster</a></button>
-<button class="btn btn1"><a href="/coach/create_post_page/{{session.coach_id}}" style="text-decoration: none; color: black;">Create New Post</a></button>
-<button class="btn btn1"><a href="/coach/create/times" style="text-decoration: none; color: black;">Add Times</a></button>
+<form action="/coach/add_athletes"><button type="submit" class="btn btn1">Add Student</button></form>
+<form action="coach/roster/{{session.coach_id}}"><button type="submit" class="btn btn1">View Roster</button></form>
+<form action="/coach/create_post_page/{{session.coach_id}}"><button type="submit" class="btn btn1">Create New Post</button></form>
+<form action="/coach/create/times"><button type="submit" class="btn btn1">Add Times</button></form>
 {%endif%}
 
 {%if coach_posts%}
@@ -20,10 +21,17 @@
     <tr>
         <td>{{post.content}}</td>
         {%if session.coach%}
-        <td><a href="/post/{{post.id}}/edit_page">Edit</a> - <a href="/post/{{post.id}}/delete">Delete</a> - <a href="/post/{{post.id}}/comment">View</a></td>
+        <td class="btn-container">
+            <form action="/post/{{post.id}}/edit_page" method=post><button class="btn btn1" type="submit">Edit</button></form>
+            <form action="/post/{{post.id}}/delete" method=post><button class="btn btn1" type="submit">Delete</button></form>
+            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">View</button></form>
+        </td>
         {%endif%}
         {%if session.athlete%}
-        <td><a href="/post/{{post.id}}/comment">Comment</a> - <form action=/post/{{post.id}}/like method=post><button type="submit">Like</button></form></td>
+        <td class="btn-container">
+            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">Comment</button></form>
+            <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
+        </td>
         {%endif%}
 
     </tr>
