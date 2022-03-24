@@ -55,7 +55,21 @@ class Comment:
         LEFT JOIN users ON users.id = comments.user_id
         LEFT JOIN posts ON posts.id = comments.post_id 
         WHERE posts.id = %(id)s;''' 
-        return connectToMySQL(cls.db).query_db(query,data)
+        result = connectToMySQL(cls.db).query_db(query,data)
+        if len(result)<1:
+            return
+        else:
+            comments = []
+            for row in result:
+                this_comment = {
+                    'comment': row['content'],
+                    'user_id': row['user_id'],
+                    'post_id':row['post_id'],
+                }
+                comments.append(this_comment)
+        print(comments,"$$$$$$$$$$$$$")
+        return comments 
+
 
 #Update
 

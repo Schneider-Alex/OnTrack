@@ -16,4 +16,12 @@ class Comment_content:
         query = """
             SELECT * FROM comment_content
         """
-        return connectToMySQL(cls.db).query_db(query)
+        result = connectToMySQL(cls.db).query_db(query)
+        all_content = []
+        for row in result:
+            this_content = {
+                'id':row['id'],
+                'content':row['content']
+            }
+            all_content.append(this_content)
+        return all_content
