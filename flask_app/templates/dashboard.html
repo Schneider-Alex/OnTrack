@@ -4,11 +4,13 @@
 <h1>{{session.first_name}}, {{session.coach_id}}</h1>
 
 {%if session.coach%}
-<button class="btn btn1"><a href="/coach/add_athletes" style="text-decoration: none; color: black;">Add Student</a></button>
-<button  class="btn btn1"><a href="coach/roster/{{session.coach_id}}" style="text-decoration: none; color: black;">View Roster</a></button>
-<button class="btn btn1"><a href="/coach/create_post_page/{{session.coach_id}}" style="text-decoration: none; color: black;">Create New Post</a></button>
-<button class="btn btn1"><a href="/coach/create/times" style="text-decoration: none; color: black;">Add Times</a></button>
+<form action="/coach/add_athletes" ><button class="btn btn1" type="submit">Add Student</button></form>
+<form action="coach/roster/{{session.coach_id}}"><button class="btn btn1" type="submit">View Roster</button></form>
+<form action="/coach/create_post_page/{{session.coach_id}}" ><button class="btn btn1" type="submit">Create New Post</button></form>
+<form action="/coach/create/times" ><button class="btn btn1" type="submit">Add Times</button></form>
+
 {%endif%}
+
 
 {%if coach_posts%}
 <table>
