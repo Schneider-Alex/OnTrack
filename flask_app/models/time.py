@@ -47,7 +47,31 @@ class Time:
     #READ
     @classmethod
     def get_time_by_id(cls, id):
-        pass
+        data = {
+            'id':id
+        }
+        query = """
+        SELECT * FROM times
+        LEFT JOIN athletes ON athletes.id = times.athlete_id
+        LEFT JOIN events ON events.id = times.event_id
+        LEFT JOIN coaches ON coaches.id = times.coach_id
+        WHERE athlete_id = %(id)s;
+        """
+        results = connectToMySQL(cls.db).query_db(query,data)
+        if len(results)<1:
+            return
+        else:
+            times = []
+            for row in results:
+                this_time={
+                    'id':row['id'],
+                    'time':row['time'],
+                    'athlete_id':row['athlete_id'],
+                    'coach_id':row['coach_id'],
+                    'event_id':row['event_id']
+                }
+                times.append(Time(this_time))
+            return times
 
 
     @classmethod
