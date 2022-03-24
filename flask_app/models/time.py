@@ -41,7 +41,7 @@ class Time:
         #     VALUES (%(time)s, %(date)s, coach_id)s, %(athlete_id)s), %(event_id)s;'''
         query='''
             INSERT INTO times (time, date, coach_id, athlete_id, event_id)
-            VALUES (%(time)s, %(date)s, %(coach_id)s, %(athlete_id)s, %(event_id)s);'''
+            VALUES (CAST(%(time)s AS DECIMAL(5,3)), %(date)s, %(coach_id)s, %(athlete_id)s, %(event_id)s);'''
         return connectToMySQL(cls.db).query_db(query,data)
 
     #READ
