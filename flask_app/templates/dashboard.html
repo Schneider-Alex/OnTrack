@@ -4,9 +4,9 @@
 <h1>{{session.first_name}}, {{session.coach_id}}</h1>
 
 {%if session.coach%}
-<a href="/coach/add_athletes">add students</a>
-<a href="/coach/roster/{{session.coach_id}}">View Roster</a>
-<a href="/coach/create_post_page/{{session.coach_id}}">Create New Post</a>
+<button href="/coach/add_athletes" class="btn btn1">Add Student</button>
+<button href="coach/roster/{{session.coach_id}}" class="btn btn1">View Roster</button>
+<button href="/coach/create_post_page/{{session.coach_id}}" class="btn btn1">Create New Post</button>
 {%endif%}
 
 {%if coach_posts%}
@@ -29,7 +29,6 @@
 {%endfor%}
 </table>
 {%endif%}
-<p>Add times</p>
-<a href="/coach/create/times">add times</a>
+<button href="/coach/create/times" class="btn btn1">Add Times</button>
 
 {% endblock %}
