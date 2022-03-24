@@ -13,6 +13,7 @@ class Time:
         self.athlete_id = data['athlete_id']
         self.coach_id = data['coach_id']
         self.event_id= data['event_id']
+        self.event = data['event']
 
     def time_display(self, time):
         pass
@@ -46,7 +47,7 @@ class Time:
 
     #READ
     @classmethod
-    def get_time_by_id(cls, id):
+    def get_time_by_athlete_id(cls, id):
         data = {
             'id':id
         }
@@ -59,7 +60,7 @@ class Time:
         """
         results = connectToMySQL(cls.db).query_db(query,data)
         if len(results)<1:
-            return
+            return False
         else:
             times = []
             for row in results:
@@ -68,7 +69,8 @@ class Time:
                     'time':row['time'],
                     'athlete_id':row['athlete_id'],
                     'coach_id':row['coach_id'],
-                    'event_id':row['event_id']
+                    'event_id':row['event_id'],
+                    'event':row['name']
                 }
                 times.append(Time(this_time))
             return times

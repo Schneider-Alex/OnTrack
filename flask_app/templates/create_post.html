@@ -1,7 +1,6 @@
 {%extends "layout.html"%}{% block body%} 
 
 
-
 <form
 action="/coach/create_post/{{session['coach_id']}}"
 method="post"
@@ -20,23 +19,6 @@ class="col dashboard-style"
 <input type="hidden" name="coach_id" value="{{session['coach_id']}}">
 <input type="submit" value="Create Post" />
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% with messages =
 get_flashed_messages() %}

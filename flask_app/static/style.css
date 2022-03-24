@@ -99,4 +99,8 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.flex{
+  display: flex;
+}
 /* stuff for testing */

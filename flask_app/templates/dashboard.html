@@ -41,8 +41,10 @@
 <div>
 {%if roster%}
 {%for athlete in roster%}
-<img src="{{url_for('static',filename='assets/athlete_icon.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top">
-<p>{{athlete.full_name}}</p>
+<form action="/athlete/view/{{athlete.id}}" class=flex>
+    <input type="image" src="{{url_for('static',filename='assets/athlete_icon.png')}}" alt="submit" width="30" height="24">
+    <h3>{{athlete.full_name}}</h3>
+</form>
 {%endfor%}
 {%endif%}
 </div>

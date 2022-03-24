@@ -62,7 +62,6 @@ class Athlete:
         if not EMAIL_REGEX.match(input['email']): 
             flash("Invalid email address!")
             is_valid = False   
-       
         return is_valid
         
     @staticmethod
@@ -107,7 +106,7 @@ class Athlete:
             athletes.append(cls(row))
         return athletes
     #######Should display by order of last name
-    
+
     @classmethod
     def get_athlete_by_email(cls, data):
         query= '''
