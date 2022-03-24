@@ -1,4 +1,7 @@
-body::before {
+* {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.homepage::before {
   background: linear-gradient(0deg, rgba(46, 41, 75, 0.9), rgba(38, 0, 255, 0.3)), 
               url("https://www.goodfreephotos.com/albums/sports/female-runners-on-the-race-track.jpg") no-repeat center center fixed;
   content: '';
@@ -69,3 +72,5 @@ body::before {
   background: white;
   transition: 0.3s;
 }
+
+/* stuff for testing */
