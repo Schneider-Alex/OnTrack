@@ -17,11 +17,11 @@ def dashboard():
         return redirect('/')
     roster = False
     if session['coach']:
-        if athlete.Athlete.get_athletes_by_coach_id(session['coach_id']):
+        # if athlete.Athlete.get_athletes_by_coach_id(session['coach_id']):
             roster=athlete.Athlete.get_athletes_by_coach_id(session['coach_id'])
     elif session['athlete']:
-        if athlete.Athlete.get_all_athletes_teammates():
-            roster = athlete.Athlete.get_all_athletes_teammates()
+        # if athlete.Athlete.get_all_athletes_teammates(session['coach_id'],session['athlete_id']):
+            roster = athlete.Athlete.get_all_athletes_teammates(session['coach_id'],session['athlete_id'])
     return render_template('dashboard.html', coach_posts=post.Post.get_all_coaches_posts(),roster=roster)
 
 @app.route('/coach/register',methods=['POST'])

@@ -10,10 +10,12 @@ class Time:
     def __init__(self, data): 
         self.id = data['id']
         self.time = data['time']
+        self.date =data['date']
         self.athlete_id = data['athlete_id']
         self.coach_id = data['coach_id']
         self.event_id= data['event_id']
         self.event = data['event']
+        
 
     def time_display(self, time):
         pass
@@ -70,7 +72,8 @@ class Time:
                     'athlete_id':row['athlete_id'],
                     'coach_id':row['coach_id'],
                     'event_id':row['event_id'],
-                    'event':row['name']
+                    'event':row['name'],
+                    'date':row['date']
                 }
                 times.append(Time(this_time))
             return times

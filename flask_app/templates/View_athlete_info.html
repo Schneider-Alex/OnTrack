@@ -30,10 +30,13 @@
         {%for time in times%}
             <tr>
                 <td>Event</td>
+                <td>Date</td>
                 <td>Time</td>
+
             </tr>
             <tr>
                 <td>{{time.event}}</td>
+                <td>{{time.date}}</td>
                 <td>{{time.time}}</td>
             </tr>
         {%endfor%}
