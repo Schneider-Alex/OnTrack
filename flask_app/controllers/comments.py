@@ -8,4 +8,10 @@ from flask_app.controllers import athletes, coaches
 def show_post(post_id):
     this_post = post.Post.get_post_by_id(post_id)
     all_comment_content = comment_content.Comment_content.get_all_comments()
-    return render_template('view_post.html', post=this_post, all_comment_content=all_comment_content)
+    all_comments = comment.Comment.get_all_comments(post_id)
+    return render_template('view_post.html', post=this_post, all_comment_content=all_comment_content, all_comments=all_comments)
+@app.route('/add/comment/to/post', methods=['POST'])
+def add_comment_to_post():
+    comment.Comment.create_comment(request.form)
+    id = request.form['post_id']
+    return redirect(f'/post/{id}/comment')

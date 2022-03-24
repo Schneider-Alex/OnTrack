@@ -14,7 +14,7 @@ class Comment_content:
     @classmethod
     def get_all_comments(cls): 
         query = """
-            SELECT * FROM comment_content
+            SELECT * FROM comment_content;
         """
         result = connectToMySQL(cls.db).query_db(query)
         all_content = []
@@ -25,3 +25,16 @@ class Comment_content:
             }
             all_content.append(this_content)
         return all_content
+    @classmethod
+    def get_content_by_id(cls,id):
+        print(id,"^^^^^^^^^^^^^^^^^^^^")
+        data ={
+            'id':id
+        }
+        query = """
+            SELECT * FROM comment_content
+            WHERE id = %(id)s;
+        """
+        result = connectToMySQL(cls.db).query_db(query, data)
+        print(result[0]['content'], "##############")
+        return result[0]['content']
