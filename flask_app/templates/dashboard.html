@@ -38,6 +38,14 @@
 {%endfor%}
 </table>
 {%endif%}
+<div>
+{%if roster%}
+{%for athlete in roster%}
+<img src="{{url_for('static',filename='assets/athlete_icon.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+<p>{{athlete.full_name}}</p>
+{%endfor%}
+{%endif%}
+</div>
 
 
 {% endblock %}

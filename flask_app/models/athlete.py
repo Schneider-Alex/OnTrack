@@ -107,6 +107,7 @@ class Athlete:
             athletes.append(cls(row))
         return athletes
     #######Should display by order of last name
+    
     @classmethod
     def get_athlete_by_email(cls, data):
         query= '''
