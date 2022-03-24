@@ -2,17 +2,11 @@
 
 <h1>{{session.first_name}}, {{session.coach_id}}</h1>
 
-<<<<<<< Updated upstream
-<a href="/coach/add_athletes">add students</a>
-<a href="/coach/roster/{{session.coach_id}}">View Roster</a>
-<a href="/coach/create_post_page/{{session.coach_id}}">Create New Post</a>
-=======
 {%if session.coach%}
 <button href="/coach/add_athletes" class="btn btn1">Add Student</button>
 <button href="coach/roster/{{session.coach_id}}" class="btn btn1">View Roster</button>
 <button href="/coach/create_post_page/{{session.coach_id}}" class="btn btn1">Create New Post</button>
 {%endif%}
->>>>>>> Stashed changes
 
 {%if coach_posts%}
 <table>
