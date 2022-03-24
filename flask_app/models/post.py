@@ -73,7 +73,8 @@ class Post:
         return result
 
     @classmethod
-    def get_all_logged_in_coaches_posts(cls):
+    def get_all_coaches_posts(cls):
+        
         data={"coach_id": session['coach_id']}
         query='''SELECT * FROM posts
         WHERE coach_id = %(coach_id)s;'''  
@@ -100,7 +101,6 @@ class Post:
         data={
             'content' : data['content'],
             'id' : data['id']
-
         }
         query = """
         UPDATE posts
@@ -119,3 +119,16 @@ class Post:
         ;'''
         print('made ','it')
         return connectToMySQL(cls.db).query_db(query, data)
+
+    @classmethod
+    def athlete_like_post(cls,post_id):
+        data={
+            'athlete_id' : session['athlete_id'],
+            'post_id' : post_id
+        }
+        query = """
+        INSERT INTO likes
+        (athlete_id, post_id) values (%(athlete_id)s,%(post_id)s)
+        ;"""
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return result

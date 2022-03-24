@@ -1,5 +1,6 @@
 {%extends "layout.html"%}{%block body%}
 
+
 <h1>{{session.first_name}}, {{session.coach_id}}</h1>
 
 {%if session.coach%}
@@ -17,7 +18,12 @@
 {%for post in coach_posts%}
     <tr>
         <td>{{post.content}}</td>
+        {%if session.coach%}
         <td><a href="/post/{{post.id}}/edit_page">Edit</a> - <a href="/post/{{post.id}}/delete">Delete</a></td>
+        {%endif%}
+        {%if session.athlete%}
+        <td><a href="/post/{{post.id}}/comment">Comment</a> - <form action=/post/{{post.id}}/like method=post><button type="submit">Like</button></form></td>
+        {%endif%}
 
     </tr>
 {%endfor%}

@@ -1,0 +1,18 @@
+{%extends "layout.html"%}{%block body%}
+    <p>{{post.content}}</p>
+    <form action="/add/comment/to/post" method="post">
+        <input type="hidden" name="post_id" value="{{post.id}}">
+        <input type="hidden" name="user_id" value="{{session.athlete}}">
+        <select name="comment">
+            {% for thing in all_comment_content %}
+                <option value="{{thing.id}}">{{thing.content}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Comment</button>
+    </form>
+    {% if all_comments %}
+        {% for comment in all_comments %}
+            <p>{{comment.comment}}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

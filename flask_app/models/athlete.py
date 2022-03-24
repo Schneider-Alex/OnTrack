@@ -11,7 +11,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 PASSWORD_REGEX = re.compile(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$')
 NAME_REGEX = re.compile('^(/^[A-Za-z]+$/)')
 
- #CREATE model
+#CREATE model
 class Athlete:
     db = 'on_track'
     def __init__(self, data): 
@@ -22,6 +22,7 @@ class Athlete:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.coach_id= data['coach_id']
         self.full_name = f"{data['first_name']} {data['last_name']}"
         self.coach=[]
         self.times=[]
@@ -107,7 +108,7 @@ class Athlete:
         return athletes
     #######Should display by order of last name
     @classmethod
-    def find_athlete_by_email(cls, data):
+    def get_athlete_by_email(cls, data):
         query= '''
         SELECT *
         FROM athletes
@@ -138,3 +139,18 @@ class Athlete:
         if len(results) < 1:
             return False
         return cls(results[0])
+    
+    @classmethod
+    def login(cls,data):
+        athlete = Athlete.get_athlete_by_email(data)
+        if athlete:
+            # this should change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if bcrypt.check_password_hash(athlete.password, data['password']):
+                print('hello')
+                session['athlete_id'] = athlete.id
+                session['coach_id'] = athlete.coach_id
+                session['first_name'] = athlete.first_name
+                session['athlete'] = 1
+                return True
+        flash('Invalid', 'login')
+        return False
