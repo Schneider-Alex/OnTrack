@@ -21,10 +21,17 @@
     <tr>
         <td>{{post.content}}</td>
         {%if session.coach%}
-        <td><a href="/post/{{post.id}}/edit_page">Edit</a> - <a href="/post/{{post.id}}/delete">Delete</a> - <a href="/post/{{post.id}}/comment">View</a></td>
+        <td class="btn-container">
+            <form action="/post/{{post.id}}/edit_page" method=post><button class="btn btn1" type="submit">Edit</button></form>
+            <form action="/post/{{post.id}}/delete" method=post><button class="btn btn1" type="submit">Delete</button></form>
+            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">View</button></form>
+        </td>
         {%endif%}
         {%if session.athlete%}
-        <td><a href="/post/{{post.id}}/comment">Comment</a> - <form action=/post/{{post.id}}/like method=post><button type="submit">Like</button></form></td>
+        <td class="btn-container">
+            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">Comment</button></form>
+            <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
+        </td>
         {%endif%}
 
     </tr>
