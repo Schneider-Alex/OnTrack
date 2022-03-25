@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template, redirect, request, session, flash, url_for
+from flask import render_template, redirect, request, session, flash, url_for, jsonify
 from flask_app.models import coach, post, event, athlete, time
 from flask_app.controllers import comments, events, posts,coaches, times
 from flask_bcrypt import Bcrypt
@@ -10,6 +10,14 @@ def athlete_login():
     if athlete.Athlete.login(request.form):
         return redirect('/dashboard')
     return redirect ('/')
+
+@app.route('/athletes/get_all') #This is for ajax, athlete drop down
+def get_all_athletes_by_coach_id_ajax():
+    athletes = athlete.Athlete.get_athletes_by_coach_id_ajax(session["coach_id"])
+    #cannot jsonify instance amke new method
+    return jsonify (athletes = athletes)
+
+
     
 @app.route('/athlete/view/<int:id>')
 def athlete_view_info(id):
