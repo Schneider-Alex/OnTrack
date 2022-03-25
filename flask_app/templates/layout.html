@@ -16,6 +16,7 @@
     </head>
 
     <body>
+        <!-- this is the header -->
         <div class="d-flex header form-style justify-content-between" style="padding: 10px 30px;">
             <h1 href="/dashboard" class="btn2">OnTrack</h1>
             <div class="d-flex justify-content-between gap">
@@ -27,8 +28,7 @@
                     {% endif %}
                     <h2>Dashboard</h2>
                 </div>
-                <!-- <button href="/logout" class="btn btn1">Log out</button> -->
-                <button href="/logout" class="btn btn3">Log Out</button>
+                <a href="/logout" class="btn btn3">Log Out</a>
             </div>
         </div>
         {% block body %}{% endblock %}

@@ -1,13 +1,49 @@
 {%extends "layout.html"%}{%block body%}
-
-
-<h1>{{session.first_name}}, {{session.coach_id}}</h1>
-
-{%if session.coach%}
-<button href="/coach/add_athletes" class="btn btn1">Add Student</button>
-<button href="coach/roster/{{session.coach_id}}" class="btn btn1">View Roster</button>
-<button href="/coach/create_post_page/{{session.coach_id}}" class="btn btn1">Create New Post</button>
-{%endif%}
+<!-- this is the main content on the page -->
+<div class="d-flex justify-content-between gap">
+    {%if session.coach%}
+        <div class="col-8 align-self-start form-style padding" style="width: 70%;">
+            <div class="d-flex justify-content-between form-style-light">
+                <!-- this may be temporary -->
+                <h2 class="font-light d-flex align-items-center">{{session.first_name}}, {{session.coach_id}}</h2>
+                <div class="d-flex justify-content-between gap-heavy">
+                    <h2 class="d-flex align-items-center font-light">Create A Post</h2>
+                    <form action="/coach/create_post_page/{{session.coach_id}}"><button type="submit" class="btn btn1">Create New Post</button></form>
+                </div>
+            </div>
+            <a href="/coach/add_athletes" class="btn btn3">Add Student</a>
+            <a href="coach/roster/{{session.coach_id}}" class="btn btn3">View Roster</a>
+            <a href="/coach/create/times" class="btn btn3">Add Times</a>
+        </div>
+    {%endif%}
+    <div class="col-3 form-style padding">
+        <div class="d-flex justify-content-center form-style-light">
+            {% if session.coach %}
+                <h2 class="d-flex align-items-center font-light">Your Athletes</h2>
+            {% else %}
+                <h2 class="d-flex align-items-center font-light">Your Team</h2>
+            {% endif %}
+            <!-- this is where all the athletes will be displayed in a roster -->
+        </div>
+        <div class="d-flex justify-content-between padding">
+            {%if roster%}
+                {%for athlete in roster%}
+                    <a href="/athlete/view/{{athlete.id}}"></a><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                      </svg></a>
+                    <h3 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h3>
+                    {%endfor%}
+            {%endif%}
+        </div>
+        <hr style="color: white;" size="5">  
+        <div class="d-flex justify-content-center">
+            <a href="/coach/add_athletes"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+            </svg></a>
+        </div>
+    </div>
+</div>
 
 {%if coach_posts%}
 <table>
@@ -15,6 +51,7 @@
         <th>Post Content</th>
         <th>Actions</th>
     </tr>
+<!-- this is for every post in for the coaches -->
 {%for post in coach_posts%}
     <tr>
         <td>{{post.content}}</td>
@@ -29,6 +66,9 @@
 {%endfor%}
 </table>
 {%endif%}
+<<<<<<< Updated upstream
 <button href="/coach/create/times" class="btn btn1">Add Times</button>
+=======
+>>>>>>> Stashed changes
 
 {% endblock %}
