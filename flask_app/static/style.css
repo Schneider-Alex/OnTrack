@@ -23,18 +23,51 @@
   text-shadow: 0px 1px 1px black;
   box-shadow: 0px 2px 5px #333;
 }
+.form-style-light {
+  background-color: #CCC;
+  padding: 10px 20px;
+  text-shadow: 0px 1px 1px black;
+  box-shadow: 0px 2px 5px black;
+  transition: 0.5s;
+}
+.form-style-light:hover {
+  background-color: rgb(223, 223, 223);
+  transition: 0.5s;
+}
 .border-radius {
   border-radius: 10px;
 }
 .menu-login {
-  background: #CCCCCC;
+  background: #CCC;
   padding: 10px 20px;
 }
 .menu-login:hover {
   background: rgb(223, 223, 223);
 }
+.font-light {
+  font-weight: 350;
+}
 .gap {
   gap: 20px;
+}
+.gap-heavy {
+  gap: 40px;
+}
+.padding {
+  padding: 20px 20px;
+}
+
+/* HTML tags */
+h2 {
+  margin: 0px;
+}
+svg {
+  color: white;
+  transition: 0.5s;
+}
+svg:hover {
+  color: gray;
+  transition: 0.5s;
 }
 
 /* button hovering effects */
@@ -71,8 +104,9 @@
 .btn3{
   color: #fff;
   border: 2px solid #fff;
-  padding: 0px 5px;
-  margin: 0px;
+  width: fit-content;
+  height: fit-content;
+  padding: 3px 5px;
 }
 .btn3:hover{
   color: gray;
