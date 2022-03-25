@@ -57,9 +57,9 @@
         <td>{{post.content}}</td>
         {%if session.coach%}
         <td class="btn-container">
-            <form action="/post/{{post.id}}/edit_page" method=post><button class="btn btn1" type="submit">Edit</button></form>
-            <form action="/post/{{post.id}}/delete" method=post><button class="btn btn1" type="submit">Delete</button></form>
-            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">View</button></form>
+            <form action="/post/{{post.id}}/edit_page"><button class="btn btn1" type="submit">Edit</button></form>
+            <form action="/post/{{post.id}}/delete"><button class="btn btn1" type="submit">Delete</button></form>
+            <form action="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">View</button></form>
         </td>
         {%endif%}
         {%if session.athlete%}
@@ -68,20 +68,19 @@
             <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
         </td>
         {%endif%}
-
     </tr>
 {%endfor%}
 </table>
 {%endif%}
 <div>
-{%if roster%}
+<!-- {%if roster%}
 {%for athlete in roster%}
 <form action="/athlete/view/{{athlete.id}}" class=flex>
     <input type="image" src="{{url_for('static',filename='assets/athlete_icon.png')}}" alt="submit" width="30" height="24">
     <h3>{{athlete.full_name}}</h3>
 </form>
 {%endfor%}
-{%endif%}
+{%endif%} -->
 </div>
 
 {% endblock %}

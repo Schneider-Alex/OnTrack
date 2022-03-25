@@ -113,6 +113,14 @@ class Post:
     @classmethod
     def delete_post(cls, id):
         data ={ "id" : id}
+        query="""
+        DELETE FROM likes WHERE post_id= %(id)s
+        """
+        connectToMySQL(cls.db).query_db(query, data)
+        query="""
+        DELETE FROM comments WHERE post_id= %(id)s
+        """
+        connectToMySQL(cls.db).query_db(query, data)
         query= '''
         DELETE FROM posts
         WHERE id = %(id)s
