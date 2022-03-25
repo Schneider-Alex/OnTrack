@@ -4,14 +4,27 @@
     <label>Add time</label>
     <input type="hidden" name="coach_id" id="" value="{{session.coach_id}}" />
     <hr class="mb-4" />
+    <label for="relay">relay:</label>
+    <input type="checkbox" name="relay" value="Relay" id="relay_check" />
+
+    <!-- option 1:  have selects already here, just with a hidden class -->
+    <!-- option 2: have two ids to target out loop = selects,  inner = options -->
+    {#% for i in range(5) %#}
+    <input type="hidden" name="isRelay" id="isRelay" value="0" />
+    <div id="athlete_select"></div>
     <select name="athlete_id" id="">
-        <!-- may need 'if athletes' -->
-        {% for athlete in athletes %}
+        {% if athletes %} {% for athlete in athletes %}
         <option value="{{athlete.id}}">
             {{athlete.last_name}}, {{athlete.first_name}}
         </option>
-        {% endfor %}
+        {% endfor %} {% else %}
+        <p>
+            There are no Athletes to add times to. Go to add athletes to update
+            roster.
+        </p>
+        {% endif %}
     </select>
+    {#% endfor %#}
     <!-- need option to display multiple athletes, Use JS -->
     <label
         >Event:
@@ -42,5 +55,15 @@
 </form>
 coach ID:
 <p>{{session.coach_id}}</p>
+</div>
+{% with messages = get_flashed_messages(category_filter=['time']) %}
+<!-- declare a variable called messages -->
+{% if messages %}
+<!-- check if there are any messages -->
+{% for message in messages %}
+<!-- loop through the messages -->
+<p>{{message}}</p>
+<!-- display each message in a paragraph tag -->
+{% endfor %} {% endif %} {% endwith %}
 
 {% endblock %}
