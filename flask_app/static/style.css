@@ -129,4 +129,12 @@ svg:hover {
   transition: 0.3s;
 }
 
+.btn-container{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.flex{
+  display: flex;
+}
 /* stuff for testing */

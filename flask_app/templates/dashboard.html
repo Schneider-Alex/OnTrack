@@ -56,19 +56,32 @@
     <tr>
         <td>{{post.content}}</td>
         {%if session.coach%}
-        <td><a href="/post/{{post.id}}/edit_page">Edit</a> - <a href="/post/{{post.id}}/delete">Delete</a></td>
+        <td class="btn-container">
+            <form action="/post/{{post.id}}/edit_page" method=post><button class="btn btn1" type="submit">Edit</button></form>
+            <form action="/post/{{post.id}}/delete" method=post><button class="btn btn1" type="submit">Delete</button></form>
+            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">View</button></form>
+        </td>
         {%endif%}
         {%if session.athlete%}
-        <td><a href="/post/{{post.id}}/comment">Comment</a> - <form action=/post/{{post.id}}/like method=post><button type="submit">Like</button></form></td>
+        <td class="btn-container">
+            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">Comment</button></form>
+            <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
+        </td>
         {%endif%}
 
     </tr>
 {%endfor%}
 </table>
 {%endif%}
-<<<<<<< Updated upstream
-<button href="/coach/create/times" class="btn btn1">Add Times</button>
-=======
->>>>>>> Stashed changes
+<div>
+{%if roster%}
+{%for athlete in roster%}
+<form action="/athlete/view/{{athlete.id}}" class=flex>
+    <input type="image" src="{{url_for('static',filename='assets/athlete_icon.png')}}" alt="submit" width="30" height="24">
+    <h3>{{athlete.full_name}}</h3>
+</form>
+{%endfor%}
+{%endif%}
+</div>
 
 {% endblock %}

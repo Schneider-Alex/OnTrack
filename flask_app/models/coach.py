@@ -113,13 +113,6 @@ class Coach:
         if Coach.get_coach_by_email(input):
             flash('An account already exists with this email', 'register')
             is_valid = False
-        # if len(input['bio']) < 1:
-        #     flash('bio must enter at least 20 characters', 'register')
-        #     is_valid = False
-        # if len(input['coach_city']) < 1:
-        #     flash('city must enter at least 1 characters', 'register')
-        #     is_valid = False
-        ##validation for state selector
         return is_valid
         
     @staticmethod
@@ -144,22 +137,6 @@ class Coach:
         return is_valid
         # Check to see if email already in db
 
-    # @classmethod
-    # def login(cls, form):
-    #     query = """SELECT * FROM coaches WHERE email =  %(email)s"""
-    #     results = connectToMySQL(cls.db).query_db(query, form)
-    #     print(results)
-    #     if len(results)<1:
-    #         flash('Username or Password Incorrect', 'login')
-    #         return False
-    #     elif not bcrypt.check_password_hash(results[0]['password'], form['password'] ):
-    #         flash('bcrypt', 'login')
-    #         return False
-    #     coach=cls(results[0])
-    #     session['coach_id'] = coach.id
-    #     session['first_name'] = coach.first_name
-    #     session['coach'] = True
-    #     return True
 
     @classmethod
     def login(cls,data):
