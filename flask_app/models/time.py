@@ -19,18 +19,21 @@ class Time:
 
     def time_display(self, data):
         if data['time'] > 60:
-            self.time = self.time + (data['minutes'] * 60)
-    #convert time to track time
+            self.time = self.time + (data['minutes'] / 60)
+    #convert seconds time to track time (min. sec.00)
 
     
     #CREATE
     @classmethod
     def create_times(cls, data):
         #Can add validation so same names are not picked more than once( use a set function to make just unique values then compare length)
-                #--Also no ensure events has 'relay' in it
+                #--Also no ensure events has 'relay' in it (can do with event id match)
         # data['time'] = cls.parsed_time_data(data['time'])
         #if minutes entered:  run method to convert
         # data = {time = data['time] + (data['minutes'] * 60)  --use dropdown for minutes
+        # if data['minutes'] != '':
+        #     data['time'] = data['time'] + data['minutes'] * 60
+        data = cls.parsed_time_data(data)
         if data['isRelay'] == '1':
             query='''
             INSERT INTO times (time,  date, coach_id, event_id, athlete_id,athlete_id2,athlete_id3,athlete_id4)
@@ -38,7 +41,7 @@ class Time:
         else:
             query='''
             INSERT INTO times (time, date, coach_id, athlete_id, event_id)
-            VALUES (CAST(%(time)s AS DECIMAL(5,3)), %(date)s, %(coach_id)s, %(athlete_id)s, %(event_id)s);'''
+            VALUES (%(time)s, %(date)s, %(coach_id)s, %(athlete_id)s, %(event_id)s);'''
         return connectToMySQL(cls.db).query_db(query,data)
 
     #READ
@@ -138,31 +141,38 @@ class Time:
     @staticmethod
     def validate_time(data):
         is_valid = True
-        if int(data['time']) < 1 or int(data['time']) > 3000:
+        if float(data['time']) < 0 or float(data['time']) > 3000:
             flash('valid times must be greater than 1 and less than 3,000 seconds', 'time')
             is_valid = False
         if data['date'] == '': 
             flash('must enter date', 'event')
             is_valid = False
-        if data['isRelay'] == '1':  ###########This validation is not working
+        if data['isRelay'] == '1':  
             if data['athlete_id'] == data['athlete_id2'] or data['athlete_id3']  == data['athlete_id4']:
                 flash('Cannot have duplicate athletes', 'time')
                 is_valid = False
+            if data['event_id'] not in [5, 6, 7, 8, 17, 18, 19, 20]:
+                flash('Event must be a relay', 'time')
+                is_valid = False
         return is_valid
         
-    # @staticmethod
-    # def parsed_time_data(data):
-    #     time_ = data['time'].split(':')
-    #     print(time_)
-    #     #convert to int if needed
-    #     time_ = time_[0] * 60 + time_[1]
-    #     print(time_)
-    #     parsed_data={
-            
-    #         'time': time_
-            
-    #     }
-    #     return parsed_data  
+    @staticmethod
+    def parsed_time_data(data):
+        time_ = float(data['time']) + float(data['minutes']) * 60
+        print(time_)
+        parsed_data={
+            'date':data['date'],
+            'time': time_,
+            'coach_id': data['coach_id'],
+            'athlete_id': data['athlete_id'],
+            'event_id': data['event_id'],
+            'isRelay' : data['isRelay']
+        }
+        if data['isRelay'] == '1':
+            parsed_data['athlete_id2'] = data['athlete_id2']
+            parsed_data['athlete_id3'] = data['athlete_id3']
+            parsed_data['athlete_id4'] = data['athlete_id4']
+        return parsed_data  
 
 
     #Optional if time: 

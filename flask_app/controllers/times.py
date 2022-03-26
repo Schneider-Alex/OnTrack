@@ -13,7 +13,6 @@ def create_times_page():
 @app.route('/create/new/time', methods=['POST'])
 def create_new_times():
     if time.Time.validate_time(request.form):
-        print(request.form)
         time.Time.create_times(request.form)
         return redirect('/dashboard')
     return redirect('/coach/create/times')
