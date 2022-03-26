@@ -15,9 +15,10 @@ class Time:
         self.coach_id = data['coach_id']
         self.event_id= data['event_id']
         self.event = data['event']
-        if self.time > 59.99:
-            time = self.convert_time(self.time)
-            self.time= time
+        time = self.convert_time(self.time)
+        self.time= time['formatted']
+        self.minutes = time['minutes']
+        self.seconds = time['seconds']
         
 
     def time_display(self, data):
@@ -170,9 +171,26 @@ class Time:
     def convert_time(cls,time):
         seconds = time%60
         minutes = int((time-seconds)/60)
+        if minutes<1:
+            time_dict = {
+                'formatted': f"{seconds}",
+                'minutes': minutes,
+                'seconds': seconds
+            }
+            return time_dict
         if seconds<10:
-            return(f"{minutes}:0{seconds}")
-        return(f"{minutes}:{seconds}")
+            time_dict = {
+                'formatted': f"{minutes}:0{seconds}",
+                'minutes': minutes,
+                'seconds': seconds
+            }
+            return time_dict
+        time_dict = {
+                'formatted': f"{minutes}:{seconds}",
+                'minutes': minutes,
+                'seconds': seconds
+            }
+        return time_dict
 
     @classmethod
     def delete_time(cls, id):
