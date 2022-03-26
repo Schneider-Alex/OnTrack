@@ -20,6 +20,7 @@ class Time:
     def time_display(self, data):
         if data['time'] > 60:
             self.time = self.time + (data['minutes'] / 60)
+            return self.time
     #convert seconds time to track time (min. sec.00)
 
     
