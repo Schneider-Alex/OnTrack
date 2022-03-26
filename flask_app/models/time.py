@@ -160,9 +160,10 @@ class Time:
     #UPDATE
     @classmethod
     def update_time(cls, data):
+        data = cls.parsed_time_data_update(data)
         query='''UPDATE times
         SET time = %(time)s, date = %(date)s,  event_id = %(event_id)s
-        WHERE id = %(id)s'''
+        WHERE id = %(athlete_id)s'''
         result = connectToMySQL(cls.db).query_db(query, data)
         print('>>>>>>>>>',result)
         return result
@@ -199,9 +200,9 @@ class Time:
     @staticmethod
     def validate_time(data):
         is_valid = True
-        if float(data['time']) < 0 or float(data['time']) > 3000:
-            flash('valid times must be greater than 1 and less than 3,000 seconds', 'time')
-            is_valid = False
+        # if float(data['time']) < 0 or float(data['time']) > 3000:
+        #     flash('valid times must be greater than 1 and less than 3,000 seconds', 'time')
+        #     is_valid = False
         if data['date'] == '': 
             flash('must enter date', 'event')
             is_valid = False
@@ -232,7 +233,23 @@ class Time:
             parsed_data['athlete_id4'] = data['athlete_id4']
         return parsed_data  
 
-
+    @staticmethod
+    def parsed_time_data_update(data):
+        time_ = float(data['seconds']) + float(data['minutes'] * 60)
+        print(time_)
+        parsed_data={
+            'date':data['date'],
+            'time': time_,
+            'coach_id': data['coach_id'],
+            'athlete_id': data['athlete_id'],
+            'event_id': data['event_id'],
+            'isRelay' : data['isRelay']
+        }
+        if data['isRelay'] == '1':
+            parsed_data['athlete_id2'] = data['athlete_id2']
+            parsed_data['athlete_id3'] = data['athlete_id3']
+            parsed_data['athlete_id4'] = data['athlete_id4']
+        return parsed_data  
     #Optional if time: 
     # -group times by date (per athletes, all athletes),  need to add date column to times table in db
     # -group times by athlete
