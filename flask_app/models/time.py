@@ -15,6 +15,9 @@ class Time:
         self.coach_id = data['coach_id']
         self.event_id= data['event_id']
         self.event = data['event']
+        if self.time > 59.99:
+            time = self.convert_time(self.time)
+            self.time= time
         
 
     def time_display(self, data):
@@ -162,6 +165,14 @@ class Time:
         result = connectToMySQL(cls.db).query_db(query, data)
         print('>>>>>>>>>',result)
         return result
+
+    @classmethod
+    def convert_time(cls,time):
+        seconds = time%60
+        minutes = int((time-seconds)/60)
+        if seconds<10:
+            return(f"{minutes}:0{seconds}")
+        return(f"{minutes}:{seconds}")
 
     @classmethod
     def delete_time(cls, id):
