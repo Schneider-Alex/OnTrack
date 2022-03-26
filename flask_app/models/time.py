@@ -144,7 +144,7 @@ class Time:
         if data['date'] == '': 
             flash('must enter date', 'event')
             is_valid = False
-        if data['isRelay'] ==1:  ###########This validation is not working
+        if data['isRelay'] == '1':  ###########This validation is not working
             if data['athlete_id'] == data['athlete_id2'] or data['athlete_id3']  == data['athlete_id4']:
                 flash('Cannot have duplicate athletes', 'time')
                 is_valid = False
