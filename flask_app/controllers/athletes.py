@@ -24,3 +24,15 @@ def athlete_view_info(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
     athletes_times = time.Time.get_time_by_athlete_id(id)
     return render_template('view_athlete_info.html', athlete=this_athlete, times=athletes_times)
+
+@app.route('/athlete/view/teammate/<int:id>')
+def view_teammate(id):
+    this_athlete = athlete.Athlete.get_athlete_by_id(id)
+    athletes_events = event.Event.get_events_by_user_id(id)
+    times = []
+    
+    for race in athletes_events:
+        times.append(time.Time.get_best_by_event_and_athlete(id, race.id))
+    print(times, "$$$$$$$$$$$$$$")
+    return render_template('view_athlete_info.html', athlete=this_athlete, times=times)
+    

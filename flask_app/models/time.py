@@ -118,10 +118,36 @@ class Time:
         print('!!!!!@@@@', times)
         return times
     #coach id in hidden input
-   
+
     @classmethod
-    def desc_times_by_event(cls, id):
-        pass
+    def get_best_by_event_and_athlete(cls, athlete_id, event_id):
+        data = {
+            'athlete_id' : athlete_id,
+            'event_id': event_id
+        }
+        query = """
+        SELECT times.*, events.*, athletes.* FROM times
+        JOIN events ON events.id = times.event_id
+        JOIN athletes ON athletes.id = times.athlete_id
+        WHERE events.id = %(event_id)s AND times.athlete_id =%(athlete_id)s
+        ORDER BY times.time ASC
+        LIMIT 1;
+        """
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if results:
+            this_time={
+                    'id':results[0]['id'],
+                    'time':results[0]['time'],
+                    'athlete_id':results[0]['athlete_id'],
+                    'coach_id':results[0]['coach_id'],
+                    'event_id':results[0]['event_id'],
+                    'event':results[0]['name'],
+                    'date':results[0]['date']
+                }
+            return cls(this_time)
+        else:
+            return 
+
 
 
     #UPDATE
