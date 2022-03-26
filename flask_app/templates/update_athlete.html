@@ -34,7 +34,9 @@ coach ID:
         {%if athlete_times %} {% for athlete_time in athlete_times %}
         <tr>
             <form action="/time/update" method="post">
-                <input type="hidden" name="id" value="{{athlete_time.id}}" />
+                <input type="hidden" name="athlete_id" value="{{athlete_time.id}}" />
+                <input type="hidden" name="isRelay" value=0>
+                <input type="hidden" name="coach_id" value={{athlete_time.coach_id}}>
                 <td>
                     <select name="event_id" id="">
                         {% for event in events %} {% if event.name ==
@@ -51,7 +53,7 @@ coach ID:
                     <label>Minutes:
                         <input
                             type="number"
-                            name="time"
+                            name="minutes"
                             id=""
                             min="0"
                             step="1"
@@ -61,7 +63,7 @@ coach ID:
                     <label>Seconds:
                         <input
                             type="number"
-                            name="time"
+                            name="seconds"
                             id=""
                             min="0"
                             step="0.01"
