@@ -56,14 +56,16 @@
 
 {%if coach_posts%}
 <table>
-    <tr>
+    <thead>
         <th>Post Content</th>
+        <th>Likes</th>
         <th>Actions</th>
-    </tr>
+    </thead>
 <!-- this is for every post in for the coaches -->
 {%for post in coach_posts%}
     <tr>
         <td>{{post.content}}</td>
+        <td>{{post.like_count}}</td>
         {%if session.coach%}
         <td class="btn-container">
             <form action="/post/{{post.id}}/edit_page"><button class="btn btn1" type="submit">Edit</button></form>
