@@ -15,11 +15,11 @@
             <td>{{athlete.last_name}}</td>
             <td>{{athlete.email}}</td>
             {%if session['coach']%}
-            <td>
-                <a href="/coach/update/athlete/display/{{athlete.id}}">Edit</a>
-                <a href="/coach/update/athlete/display/{{athlete.id}}">View</a>
-                <a href="#">Delete</a>
-            </td>
+                <td>
+                    <a href="/coach/update/athlete/display/{{athlete.id}}">Edit</a>
+                    <a href="/coach/update/athlete/display/{{athlete.id}}">View</a>
+                    <a href="#">Delete</a>
+                </td>
             {%endif%}
         </tr>
         {% endif %}
@@ -27,13 +27,13 @@
 </table>
 {%if times%}
     <table class="table">
-        {%for time in times%}
+        
             <tr>
                 <td>Event</td>
                 <td>Date</td>
                 <td>Time</td>
-
             </tr>
+        {%for time in times%}
             <tr>
                 <td>{{time.event}}</td>
                 <td>{{time.date}}</td>

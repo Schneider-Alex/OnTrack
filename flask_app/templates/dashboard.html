@@ -15,6 +15,13 @@
             <a href="coach/roster/{{session.coach_id}}" class="btn btn3">View Roster</a>
             <a href="/coach/create/times" class="btn btn3">Add Times</a>
         </div>
+    {% else %}
+        <div class="col-8 align-self-start form-style padding" style="width: 70%;">
+            <div class="d-flex justify-content-between form-style-light">
+                <h2 class="font-light d-flex align-items-center">{{session.first_name}}</h2>
+            </div>
+            <a href="/athlete/view/{{session.athlete}}" class="btn btn3">View My Times</a>
+        </div>
     {%endif%}
     <div class="col-3 form-style padding">
         <div class="d-flex justify-content-center form-style-light">
@@ -28,11 +35,11 @@
         <div class="d-flex justify-content-between padding">
             {%if roster%}
                 {%for athlete in roster%}
-                    <a href="/athlete/view/{{athlete.id}}"></a><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <a href="/athlete/view/teammate/{{athlete.id}}"></a><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                      </svg></a>
-                    <h3 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h3>
-                    {%endfor%}
+                        </svg></a>
+                    <a href="/athlete/view/teammate/{{athlete.id}}"><h3 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h3></a>
+                {%endfor%}
             {%endif%}
         </div>
         <hr style="color: white;" size="5">  
