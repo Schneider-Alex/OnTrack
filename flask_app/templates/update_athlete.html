@@ -48,14 +48,26 @@ coach ID:
                     </select>
                 </td>
                 <td>
-                    <input
-                        type="number"
-                        name="time"
-                        id=""
-                        min="0"
-                        step="0.01"
-                        value="{{athlete_time.time}}"
-                    />
+                    <label>Minutes:
+                        <input
+                            type="number"
+                            name="time"
+                            id=""
+                            min="0"
+                            step="1"
+                            value="{{athlete_time.minutes}}"
+                        />
+                    </label>
+                    <label>Seconds:
+                        <input
+                            type="number"
+                            name="time"
+                            id=""
+                            min="0"
+                            step="0.01"
+                            value="{{athlete_time.seconds}}"
+                        />
+                    </label>
                 </td>
                 <td>
                     <input
