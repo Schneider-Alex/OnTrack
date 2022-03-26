@@ -72,6 +72,8 @@ class Time:
                     'event':row['name'],
                     'date':row['date']
                 }
+                # if this_time['time'] >= 60:
+                #     this_time['time'] = round(this_time['time'] / 60, 2)
                 times.append(Time(this_time))
             return times
 
@@ -95,28 +97,28 @@ class Time:
         #allows coach and students to view top results have order by functionality for ordering by last name, time length
         #What about relays?
 
-    @classmethod
-    def get_times_by_athlete_id(cls, id):
-        data = {'athlete_id': id,
-                'coach_id' : session['coach_id']}
-        query = '''SELECT times.time, times.date, times.id, times.event_id, events.name  FROM times
-        JOIN events ON events.id = times.event_id
-        WHERE times.athlete_id = %(athlete_id)s
-        AND times.coach_id = %(coach_id)s;'''
-        results = connectToMySQL(cls.db).query_db(query, data)
-        print(results)
-        if len(results) < 1:
-            return results
-        times=[]
-        for row in results:
-            this_time = {'time': row['time'],
-                        'name': row['name'],
-                        'date' : row['date'],
-                        'id' : row['id']
-                        }
-            times.append(this_time)
-        print('!!!!!@@@@', times)
-        return times
+    # @classmethod
+    # def get_times_by_athlete_id(cls, id):
+    #     data = {'athlete_id': id,
+    #             'coach_id' : session['coach_id']}
+    #     query = '''SELECT times.time, times.date, times.id, times.event_id, events.name  FROM times
+    #     JOIN events ON events.id = times.event_id
+    #     WHERE times.athlete_id = %(athlete_id)s
+    #     AND times.coach_id = %(coach_id)s;'''
+    #     results = connectToMySQL(cls.db).query_db(query, data)
+    #     print(results)
+    #     if len(results) < 1:
+    #         return results
+    #     times=[]
+    #     for row in results:
+    #         this_time = {'time': row['time'],
+    #                     'name': row['name'],
+    #                     'date' : row['date'],
+    #                     'id' : row['id']
+    #                     }
+    #         times.append(this_time)
+    #     print('!!!!!@@@@', times)
+    #     return times
     #coach id in hidden input
    
     @classmethod
@@ -151,7 +153,7 @@ class Time:
             if data['athlete_id'] == data['athlete_id2'] or data['athlete_id3']  == data['athlete_id4']:
                 flash('Cannot have duplicate athletes', 'time')
                 is_valid = False
-            if data['event_id'] not in [5, 6, 7, 8, 17, 18, 19, 20]:
+            if int(data['event_id']) not in [5, 6, 7, 8, 17, 18, 19, 20]:
                 flash('Event must be a relay', 'time')
                 is_valid = False
         return is_valid
