@@ -2,7 +2,7 @@ from unittest import result
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
 from flask_app import app
 from flask import flash, session
-from flask_app.models import event, post, time     
+from flask_app.models import event, post, time, athlete     
 
 
 class Time:
@@ -19,6 +19,7 @@ class Time:
         self.time= time['formatted']
         self.minutes = time['minutes']
         self.seconds = time['seconds']
+        self.athlete = athlete.Athlete.get_athlete_by_id(self.athlete_id)
         
 
     def time_display(self, data):
@@ -154,7 +155,39 @@ class Time:
             return cls(this_time)
         else:
             return 
-
+    @classmethod
+    def get_team_records(cls, coach_id):
+        data = {
+            'coach_id' : coach_id,
+        }
+        query = """
+        SELECT times.*, events.*, athletes.* FROM times
+        JOIN events ON events.id = times.event_id
+        JOIN coaches ON times.coach_id = coaches.id
+        JOIN athletes ON athletes.id = times.athlete_id
+        WHERE times.coach_id =%(coach_id)s
+        ORDER BY times.time ASC;
+        """
+        result = connectToMySQL(cls.db).query_db(query, data)
+        
+        if result:
+            times = []
+            for results in result:
+                this_time={
+                        'id':results['id'],
+                        'time':results['time'],
+                        'athlete_id':results['athlete_id'],
+                        'coach_id':results['coach_id'],
+                        'event_id':results['event_id'],
+                        'event':results['name'],
+                        'date':results['date']
+                    }
+                times.append(cls(this_time))
+            print(times, '$$$$$')
+            # times = cls.get_top_only(times)
+            return times
+        else:
+            return 
 
 
     #UPDATE
@@ -254,3 +287,10 @@ class Time:
     # -group times by date (per athletes, all athletes),  need to add date column to times table in db
     # -group times by athlete
 
+    @staticmethod
+    def get_top_only(arr):
+        for i in range(len(arr)):
+            for j in range(i+1,len(arr)):
+                if arr[i].event == arr[j].event:
+                    arr.pop(arr[j])
+        return arr

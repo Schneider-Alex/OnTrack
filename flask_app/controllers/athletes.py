@@ -17,7 +17,12 @@ def get_all_athletes_by_coach_id_ajax():
     #cannot jsonify instance amke new method
     return jsonify (athletes = athletes)
 
-
+@app.route('/athlete/view/team/records')
+def view_team_records():
+    runner = athlete.Athlete.get_athlete_by_id(session['athlete_id'])
+    coach = runner.coach_id
+    times = time.Time.get_team_records(coach)
+    return render_template('team_records.html', times=times)
     
 @app.route('/athlete/view/<int:id>')
 def athlete_view_info(id):
