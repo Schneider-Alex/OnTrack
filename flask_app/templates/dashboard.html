@@ -76,16 +76,16 @@
             {% endif %}
         </div>
         <!-- this is where all the athletes will be displayed in a roster -->
-        <div class="d-flex justify-content-between padding">
-            {%if roster%}
-                {%for athlete in roster%}
+        {%if roster%}
+            {%for athlete in roster%}
+                <div class="d-flex justify-content-between padding">
                     <a href="/athlete/view/teammate/{{athlete.id}}"></a><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg></a>
                     <a href="/athlete/view/teammate/{{athlete.id}}"><h3 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h3></a>
-                {%endfor%}
-            {%endif%}
-        </div>
+                </div>
+            {%endfor%}
+        {%endif%}
         <hr style="color: white;" size="5">  
         {% if session.coach %}
             <div class="d-flex justify-content-center">
