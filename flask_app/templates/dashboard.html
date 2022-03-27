@@ -15,6 +15,14 @@
             <a href="coach/roster/{{session.coach_id}}" class="btn btn3">View Roster</a>
             <a href="/coach/create/times" class="btn btn3">Add Times</a>
         </div>
+    {% else %}
+        <div class="col-8 align-self-start form-style padding" style="width: 70%;">
+            <div class="d-flex justify-content-between form-style-light">
+                <h2 class="font-light d-flex align-items-center">{{session.first_name}}</h2>
+            </div>
+            <a href="/athlete/view/{{session.athlete}}" class="btn btn3">View My Times</a>
+            <a href="/athlete/view/team/records" class="btn btn3">Team Records</a>
+        </div>
     {%endif%}
     {%if session.athlete%}
         <div class="col-8 align-self-start form-style padding" style="width: 70%;">
@@ -71,16 +79,15 @@
         <div class="d-flex justify-content-between padding">
             {%if roster%}
                 {%for athlete in roster%}
-                    <a href="/athlete/view/{{athlete.id}}"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <a href="/athlete/view/teammate/{{athlete.id}}"></a><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                      </svg></a>
-                    <h3 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h3>
-                    {%endfor%}
+                        </svg></a>
+                    <a href="/athlete/view/teammate/{{athlete.id}}"><h3 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h3></a>
+                {%endfor%}
             {%endif%}
         </div>
-        <!-- add to roster button when logged in as coach -->
+        <hr style="color: white;" size="5">  
         {% if session.coach %}
-            <hr style="color: white;" size="5">  
             <div class="d-flex justify-content-center">
                 <a href="/coach/add_athletes"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                     <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -91,15 +98,44 @@
     </div>
 </div>
 
-<!-- <div>
-{%if roster%}
-    {%for athlete in roster%}
-        <form action="/athlete/view/{{athlete.id}}" class=flex>
-            <input type="image" src="{{url_for('static',filename='assets/athlete_icon.png')}}" alt="submit" width="30" height="24">
-            <h3>{{athlete.full_name}}</h3>
-        </form>
-    {%endfor%}
+{%if coach_posts%}
+<table>
+    <thead>
+        <th>Post Content</th>
+        <th>Likes</th>
+        <th>Actions</th>
+    </thead>
+<!-- this is for every post in for the coaches -->
+{%for post in coach_posts%}
+    <tr>
+        <td>{{post.content}}</td>
+        <td>{{post.like_count}}</td>
+        {%if session.coach%}
+        <td class="btn-container">
+            <form action="/post/{{post.id}}/edit_page"><button class="btn btn1" type="submit">Edit</button></form>
+            <form action="/post/{{post.id}}/delete"><button class="btn btn1" type="submit">Delete</button></form>
+            <form action="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">View</button></form>
+        </td>
+        {%endif%}
+        {%if session.athlete%}
+        <td class="btn-container">
+            <a href="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">Comment</button></a>
+            <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
+        </td>
+        {%endif%}
+    </tr>
+{%endfor%}
+</table>
 {%endif%}
-</div> -->
+<div>
+<!-- {%if roster%}
+{%for athlete in roster%}
+<form action="/athlete/view/{{athlete.id}}" class=flex>
+    <input type="image" src="{{url_for('static',filename='assets/athlete_icon.png')}}" alt="submit" width="30" height="24">
+    <h3>{{athlete.full_name}}</h3>
+</form>
+{%endfor%}
+{%endif%} -->
+</div>
 
 {% endblock %}

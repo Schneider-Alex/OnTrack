@@ -62,14 +62,23 @@ class Event:
     @classmethod
     def get_events_by_user_id(cls,id):
         data = {'user_id' : id}
-        query = '''SELECT * FROM events
-                WHERE user_id = %(user_id)s
-                ;'''   ###May need to revise query
+        query = '''
+                SELECT DISTINCT event_id, events.name
+                FROM times
+                LEFT JOIN athletes ON athletes.id = times.athlete_id
+                LEFT JOIN events ON events.id = times.event_id
+                LEFT JOIN coaches ON coaches.id = times.coach_id
+                WHERE athlete_id = %(user_id)s
+                ;'''   
         result = connectToMySQL(cls.db).query_db(query,data)
         events = []
-        for row in result: 
-            events.append(cls(row))
-        # print(events)
+        if result:
+            for row in result: 
+                this_event = {
+                    'id': row['event_id'],
+                    'name': row['name']
+                }
+                events.append(cls(this_event))
         return events
 
     

@@ -12,9 +12,10 @@ def create_times_page():
 
 @app.route('/create/new/time', methods=['POST'])
 def create_new_times():
-    print(request.form)
-    time.Time.create_times(request.form)
-    return redirect('/dashboard')
+    if time.Time.validate_time(request.form):
+        time.Time.create_times(request.form)
+        return redirect('/dashboard')
+    return redirect('/coach/create/times')
 
 #READ
 #render View time page
@@ -22,8 +23,9 @@ def create_new_times():
 #UPDATE
 @app.route('/time/update', methods=['POST'])
 def update_time():
-    time.Time.update_time(request.form)
-    print('$$$$$$', request.form)
+    if time.Time.validate_time(request.form):
+        time.Time.update_time(request.form)
+        print('$$$$$$', request.form)
     return redirect('/success_updated_time')
 
 @app.route('/success_updated_time')

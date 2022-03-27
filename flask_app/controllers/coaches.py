@@ -62,17 +62,17 @@ def success(id):
 @app.route('/coach/update/athlete/display/<int:id>')
 def display_for_update(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
-    athlete_times = time.Time.get_times_by_athlete_id(id)
+    athlete_times = time.Time.get_time_by_athlete_id(id)
     events_ = event.Event.get_all_events()
     print(athlete_times)
     # athlete_times - athlete.Athlete.get  ########## get times by athlete id
     return render_template('update_athlete.html', athlete = this_athlete, athlete_times= athlete_times, events= events_)
 
-@app.route('/coach/update/athlete')
+@app.route('/coach/update/athlete', methods=['POST'])
 def update_athlete():
     athlete.Athlete.update_athlete(request.form)
-    #also need to update times
-    return redirect('/') #confirmation page
+    athlete_id=request.form['id']
+    return redirect(f'/athlete/view/{athlete_id}') #confirmation page
 
 
 @app.route('/logout')

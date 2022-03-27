@@ -16,6 +16,7 @@ class Post:
         self.time_id = data['time_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.like_count = self.get_likes(self.id)
         # self.time = time.Time.get_time_by_id(self.time_id) 
         # self.time may need some editing and tampering
 
@@ -95,7 +96,20 @@ class Post:
         if len(results) < 1:
             return False
         return cls(results[0])
-    
+
+    @classmethod
+    def get_likes(cls, id):
+        data= {'id': id}
+        query = '''SELECT DISTINCT athlete_id
+                FROM posts 
+                LEFT JOIN likes on likes.post_id = posts.id
+                WHERE id = %(id)s;'''
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if results:
+            return len(results)
+        else:
+            return 0
+
     @classmethod
     def update_post(cls, data):
         data={
@@ -113,6 +127,14 @@ class Post:
     @classmethod
     def delete_post(cls, id):
         data ={ "id" : id}
+        query="""
+        DELETE FROM likes WHERE post_id= %(id)s
+        """
+        connectToMySQL(cls.db).query_db(query, data)
+        query="""
+        DELETE FROM comments WHERE post_id= %(id)s
+        """
+        connectToMySQL(cls.db).query_db(query, data)
         query= '''
         DELETE FROM posts
         WHERE id = %(id)s

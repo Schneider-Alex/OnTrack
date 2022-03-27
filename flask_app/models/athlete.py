@@ -107,6 +107,18 @@ class Athlete:
         return athletes
 
     @classmethod
+    def get_athletes_by_coach_id_ajax(cls, id):
+        data= {'id': id}
+        query = """SELECT * FROM athletes
+        WHERE coach_id = %(id)s
+        ORDER BY last_name;"""
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        print('XXXXXXXXX', results)
+        return results
+
+    @classmethod
     def get_all_athletes_teammates(cls, coach_id, id):
         data= {
             'id': id,
