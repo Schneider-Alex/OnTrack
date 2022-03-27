@@ -155,34 +155,57 @@ class Time:
             return cls(this_time)
         else:
             return 
+    
+    @classmethod
+    def get_best_by_event_and_coach(cls, coach_id, event_id):
+        data = {
+            'coach_id' : coach_id,
+            'event_id': event_id
+        }
+        query = """
+        SELECT times.*, events.*, athletes.* FROM times
+        JOIN events ON events.id = times.event_id
+        JOIN athletes ON athletes.id = times.athlete_id
+        WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s
+        ORDER BY times.time ASC
+        LIMIT 1;
+        """
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if results:
+            this_time={
+                    'id':results[0]['id'],
+                    'time':results[0]['time'],
+                    'athlete_id':results[0]['athlete_id'],
+                    'coach_id':results[0]['coach_id'],
+                    'event_id':results[0]['event_id'],
+                    'event':results[0]['name'],
+                    'date':results[0]['date']
+                }
+            return cls(this_time)
+        else:
+            return 
+
     @classmethod
     def get_team_records(cls, coach_id):
         data = {
             'coach_id' : coach_id,
         }
         query = """
-        SELECT times.*, events.*, athletes.* FROM times
+        SELECT DISTINCT times.event_id, times.coach_id FROM times
         JOIN events ON events.id = times.event_id
         JOIN coaches ON times.coach_id = coaches.id
         JOIN athletes ON athletes.id = times.athlete_id
         WHERE times.coach_id =%(coach_id)s
-        ORDER BY times.time ASC;
+        ORDER BY times.event_id ASC
+        ;
         """
         result = connectToMySQL(cls.db).query_db(query, data)
         
         if result:
             times = []
-            for results in result:
-                this_time={
-                        'id':results['id'],
-                        'time':results['time'],
-                        'athlete_id':results['athlete_id'],
-                        'coach_id':results['coach_id'],
-                        'event_id':results['event_id'],
-                        'event':results['name'],
-                        'date':results['date']
-                    }
-                times.append(cls(this_time))
+            for row in result:
+                this_time = cls.get_best_by_event_and_coach(row['coach_id'], row['event_id'])
+                times.append(this_time)
             print(times, '$$$$$')
             # times = cls.get_top_only(times)
             return times
