@@ -1,28 +1,35 @@
 {%extends "layout.html"%}{% block body%}
+<div class="container form-style padding border-radius">
+    <div class="form-style-light font-light border-radius text-center">
+        <h2 class="font-light">{{ athlete.full_name }}</h2>
+    </div>
+    <hr style="color: black;" size="5">
+    <table class="table form-style-light font-light border-radius">
+        <thead>
+            <tr>
+                <td>First Name</td>
+                <td>last Name</td>
+                <td>email</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% if athlete%}
+            <tr class="menu-login">
+                <td>{{athlete.first_name}}</td>
+                <td>{{athlete.last_name}}</td>
+                <td>{{athlete.email}}</td>
+                {%if session['coach']%}
+                    <td>
+                        <a href="/coach/update/athlete/display/{{athlete.id}}" class="btn btn1">Edit</a>
+                    </td>
+                {%endif%}
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <td>First Name</td>
-            <td>last Name</td>
-            <td>email</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% if athlete%}
-        <tr>
-            <td>{{athlete.first_name}}</td>
-            <td>{{athlete.last_name}}</td>
-            <td>{{athlete.email}}</td>
-            {%if session['coach']%}
-                <td>
-                    <a href="/coach/update/athlete/display/{{athlete.id}}">Edit</a>
-                </td>
-            {%endif%}
-        </tr>
-        {% endif %}
-    </tbody>
-</table>
+<!-- Justin has still not styled this -->
 {%if times%}
     <table class="table">
         
@@ -39,7 +46,6 @@
             </tr>
         {%endfor%}
     </table>
-
 {%endif%}
 
 {% endblock %}

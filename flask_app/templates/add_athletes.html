@@ -1,29 +1,23 @@
 {%extends "layout.html"%}{% block body%}
-
-<form
-    action="/create_athlete_account"
-    method="post"
-    class="col dashboard-style"
->
-    <label>Add Athlete</label>
-    <hr class="mb-4" />
-    <label
-        >First Name:
-        <input type="text" name="first_name" />
-    </label>
-    <label
-        >Last Name:
-        <input type="text" name="last_name" />
-    </label>
-    <label
-        >Email:
-        <input type="text" name="email" />
-    </label>
-    <label>Password: <input type="password" name="password" /></label>
-    <input type="submit" value="add athlete" />
-</form>
-coach ID:
-<p>{{session.coach_id}}</p>
+<div class="container form-style padding border-radius">
+    <div class="menu-login font-light border-radius">
+        <h2>Add an Athlete</h2>
+    </div>
+    <hr style="color: black;" size="5">
+    <form action="/create_athlete_account" method="post" class="d-flex justify-content-between align-items-center menu-login border-radius">
+        <div>
+            <label>First Name:</label>
+            <input type="text" name="first_name" class="input-field"/>
+            <label>Last Name:</label>
+            <input type="text" name="last_name" class="input-field"/>
+            <label>Email:</label>
+            <input type="text" name="email" class="input-field"/>
+            <label>Password:</label>
+            <input type="password" name="password" class="input-field"/>
+        </div>
+        <input type="submit" value="add athlete" class="btn btn1"/>
+    </form>
+</div>
 
 {% with messages = get_flashed_messages() %}
 <!-- declare a variable called messages -->

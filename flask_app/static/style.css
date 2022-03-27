@@ -40,9 +40,20 @@
 .menu-login {
   background: #CCC;
   padding: 10px 20px;
+  transition: 0.5s;
 }
 .menu-login:hover {
   background: rgb(223, 223, 223);
+  transition: 0.5s;
+}
+.input-field {
+  background: rgb(223, 223, 223);
+  border-radius: 10px;
+  transition: 0.5s;
+}
+.input-field:hover {
+  border-color: white;
+  transition: 0.5s;
 }
 .font-light {
   font-weight: 350;
