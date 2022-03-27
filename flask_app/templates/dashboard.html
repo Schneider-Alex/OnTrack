@@ -24,15 +24,58 @@
             <a href="/athlete/view/team/records" class="btn btn3">Team Records</a>
         </div>
     {%endif%}
+    {%if session.athlete%}
+        <div class="col-8 align-self-start form-style padding" style="width: 70%;">
+            <div class="d-flex justify-content-between form-style-light">
+                <!-- this may be temporary -->
+                <h2 class="font-light d-flex align-items-center">{{session.first_name}}, {{session.athlete_id}}</h2>
+                <div class="d-flex justify-content-start align-items-center">
+                    <a href="/coach/create_post_page/{{session.coach_id}}" class="btn btn1">See My Times</a>
+                </div>
+            </div>
+        </div>
+    {%endif%}
+    
+    <!-- displaying the posts -->
+    {%if coach_posts%}
+        <table>
+            <tr>
+                <th>Post Content</th>
+                <th>Actions</th>
+            </tr>
+            <!-- this is for every post in for the coaches -->
+            {%for post in coach_posts%}
+                <tr>
+                    <td>{{post.content}}</td>
+                    {%if session.coach%}
+                        <td class="btn-container">
+                            <form action="/post/{{post.id}}/edit_page" method=post><button class="btn btn1" type="submit">Edit</button></form>
+                            <form action="/post/{{post.id}}/delete" method=post><button class="btn btn1" type="submit">Delete</button></form>
+                            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">View</button></form>
+                        </td>
+                    {%endif%}
+                    {%if session.athlete%}
+                        <td class="btn-container">
+                            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">Comment</button></form>
+                            <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
+                        </td>
+                    {%endif%}
+
+                </tr>
+            {%endfor%}
+        </table>
+    {%endif%}
+
+    <!-- this is the sidebar menu -->
     <div class="col-3 form-style padding">
         <div class="d-flex justify-content-center form-style-light">
             {% if session.coach %}
-                <h2 class="d-flex align-items-center font-light">Your Athletes</h2>
+                <a href="coach/roster/{{session.coach_id}}" class="btn btn1"><h2 class="d-flex align-items-center font-light">Your Roster</h2></a>
             {% else %}
                 <h2 class="d-flex align-items-center font-light">Your Team</h2>
             {% endif %}
-            <!-- this is where all the athletes will be displayed in a roster -->
         </div>
+        <!-- this is where all the athletes will be displayed in a roster -->
         <div class="d-flex justify-content-between padding">
             {%if roster%}
                 {%for athlete in roster%}
