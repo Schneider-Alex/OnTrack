@@ -13,12 +13,9 @@ class Post:
         self.id = data['id']
         self.content = data['content']
         self.coach_id = data['coach_id']
-        self.time_id = data['time_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.like_count = self.get_likes(self.id)
-        # self.time = time.Time.get_time_by_id(self.time_id) 
-        # self.time may need some editing and tampering
 
 #displays how long ago post was made
     def timestamp(self):
@@ -38,24 +35,8 @@ class Post:
     #CREATE
     @classmethod
     def create_post(cls, data):
-        # if data['athlete_id4']:
-        #     query='''
-        #     INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3,athlete_id4)
-        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s, %(athlete_id4)s);'''
-        # elif data['athlete_id3']:
-        #     query='''
-        #     INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2,athlete_id3)
-        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s, %(athlete_id3)s);'''
-        # elif data['athlete_i2']:
-        #     query='''
-        #     INSERT INTO posts (content, coach_id, time_id, athlete_id,athlete_id2)
-        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s,%(athlete_id)s, %(athlete_id2)s);'''
-        # else:
-        #     query='''
-        #     INSERT INTO posts (content, coach_id, time_id, athlete_id)
-        #     VALUES (%(content)s,%(coach_id)s,%(time_id)s, %(athlete_id)s);'''
-        query="""INSERT INTO posts (content, coach_id, time_id)
-        VALUES (%(content)s,%(coach_id)s,%(time_id)s);
+        query="""INSERT INTO posts (content, coach_id)
+        VALUES (%(content)s,%(coach_id)s);
         """
         return connectToMySQL(cls.db).query_db(query,data)
 
@@ -102,7 +83,7 @@ class Post:
         data= {'id': id}
         query = '''SELECT DISTINCT athlete_id
                 FROM posts 
-                LEFT JOIN likes on likes.post_id = posts.id
+                JOIN likes on likes.post_id = posts.id
                 WHERE id = %(id)s;'''
         results = connectToMySQL(cls.db).query_db(query, data)
         if results:
