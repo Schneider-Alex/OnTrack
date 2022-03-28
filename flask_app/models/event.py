@@ -68,7 +68,7 @@ class Event:
                 LEFT JOIN athletes ON athletes.id = times.athlete_id
                 LEFT JOIN events ON events.id = times.event_id
                 LEFT JOIN coaches ON coaches.id = times.coach_id
-                WHERE athlete_id = %(user_id)s
+                WHERE athlete_id = %(user_id)s OR athlete_id2 = %(user_id)s  OR athlete_id3 = %(user_id)s OR athlete_id4 = %(user_id)s 
                 ;'''   
         result = connectToMySQL(cls.db).query_db(query,data)
         events = []

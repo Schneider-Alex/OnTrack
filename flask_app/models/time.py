@@ -137,7 +137,7 @@ class Time:
         SELECT times.*, events.*, athletes.* FROM times
         JOIN events ON events.id = times.event_id
         JOIN athletes ON athletes.id = times.athlete_id
-        WHERE events.id = %(event_id)s AND times.athlete_id =%(athlete_id)s
+        WHERE events.id = %(event_id)s AND times.athlete_id =%(athlete_id)s OR events.id = %(event_id)s AND times.athlete_id2 =%(athlete_id)s OR events.id = %(event_id)s AND times.athlete_id3 =%(athlete_id)s OR events.id = %(event_id)s AND times.athlete_id4 =%(athlete_id)s
         ORDER BY times.time ASC
         LIMIT 1;
         """

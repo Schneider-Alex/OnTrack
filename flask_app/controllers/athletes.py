@@ -35,7 +35,7 @@ def view_teammate(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
     athletes_events = event.Event.get_events_by_user_id(id)
     times = []
-    
+    print(athletes_events[0].id)
     for race in athletes_events:
         times.append(time.Time.get_best_by_event_and_athlete(id, race.id))
     print(times, "$$$$$$$$$$$$$$")
