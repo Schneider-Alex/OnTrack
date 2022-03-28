@@ -1,19 +1,17 @@
 {%extends "layout.html"%}{% block body%} 
 
-
-<form
-action="/coach/create_post/{{session['coach_id']}}"
-method="post"
-class="col dashboard-style"
->
-<label>New Post</label>
-<hr class="mb-4" />
-<label
-    >Content:
-    <input type="text" name="content" required/>
-</label>
-<input type="hidden" name="coach_id" value="{{session['coach_id']}}">
-<input type="submit" value="Create Post" />
+<div class="container form-style padding border-radius">
+    <div class="menu-login font-light border-radius">
+        <h2>New Post:</h2>
+    </div>
+<form action="/coach/create_post/{{session['coach_id']}}" method="post" class="d-flex justify-content-between align-items-center menu-login border-radius">
+    <hr class="mb-4" />
+    <label
+        >Content:
+        <input type="text" name="content" class="input-field" style="width: 250px; ; height:250px" required/>
+    </label>
+    <input type="hidden" name="coach_id" value="{{session['coach_id']}}">
+    <input type="submit" value="Create Post" />
 </form>
 
 {% with messages =
@@ -26,4 +24,5 @@ get_flashed_messages() %}
 <p>{{message}}</p>
 <!-- display each message in a paragraph tag -->
 {% endfor %} {% endif %} {% endwith %} {% endblock %}
+</div>
 
