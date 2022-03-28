@@ -3,7 +3,7 @@
 <div class="d-flex justify-content-between gap">
     {%if session.coach%}
         <div class="col-8 align-self-start form-style padding" style="width: 70%;">
-            <div class="d-flex justify-content-between form-style-light">
+            <div class="d-flex justify-content-between form-style-light border-radius">
                 <!-- this may be temporary -->
                 <h2 class="font-light d-flex align-items-center">{{session.first_name}}, {{session.coach_id}}</h2>
                 <div class="d-flex justify-content-between gap-heavy">
@@ -26,7 +26,7 @@
     {%endif%}
     {%if session.athlete%}
         <div class="col-8 align-self-start form-style padding" style="width: 70%;">
-            <div class="d-flex justify-content-between form-style-light">
+            <div class="d-flex justify-content-between form-style-light border-radius">
                 <!-- this may be temporary -->
                 <h2 class="font-light d-flex align-items-center">{{session.first_name}}, {{session.athlete_id}}</h2>
                 <div class="d-flex justify-content-start align-items-center">
@@ -68,9 +68,9 @@
 
     <!-- this is the sidebar menu -->
     <div class="col-3 form-style padding">
-        <div class="d-flex justify-content-center form-style-light">
+        <div class="d-flex justify-content-center form-style-light border-radius">
             {% if session.coach %}
-                <a href="coach/roster/{{session.coach_id}}" class="btn btn1"><h2 class="d-flex align-items-center font-light">Your Roster</h2></a>
+                <a href="coach/roster/{{session.coach_id}}" class="btn btn1 font-light">Your Roster</a>
             {% else %}
                 <h2 class="d-flex align-items-center font-light">Your Team</h2>
             {% endif %}
@@ -78,15 +78,17 @@
         <!-- this is where all the athletes will be displayed in a roster -->
         {%if roster%}
             {%for athlete in roster%}
-                <div class="d-flex justify-content-between padding">
-                    <a href="/athlete/view/teammate/{{athlete.id}}"></a><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                <div class="d-flex justify-content-between align-items-center padding">
+                    <div>
+                        <a href="/athlete/view/teammate/{{athlete.id}}"></a><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg></a>
-                    <a href="/athlete/view/teammate/{{athlete.id}}"><h3 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h3></a>
+                    </div>
+                    <a href="/athlete/view/teammate/{{athlete.id}}"><h4 class="d-flex align-items-center font-light btn2 justify-content-center">{{ athlete.full_name }}</h4></a>
                 </div>
+                <hr style="color: white;" size="5">  
             {%endfor%}
         {%endif%}
-        <hr style="color: white;" size="5">  
         {% if session.coach %}
             <div class="d-flex justify-content-center">
                 <a href="/coach/add_athletes"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
