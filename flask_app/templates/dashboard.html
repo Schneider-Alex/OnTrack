@@ -39,31 +39,32 @@
     <!-- displaying the posts -->
     {%if coach_posts%}
         <table>
-            <tr>
+            <thead>
                 <th>Post Content</th>
+                <th>Likes</th>
                 <th>Actions</th>
+            </thead>
+        <!-- this is for every post in for the coaches -->
+        {%for post in coach_posts%}
+            <tr>
+                <td>{{post.content}}</td>
+                <td>{{post.like_count}}</td>
+                {%if session.coach%}
+                <td class="btn-container">
+                    <form action="/post/{{post.id}}/edit_page"><button class="btn btn1" type="submit">Edit</button></form>
+                    <form action="/post/{{post.id}}/delete"><button class="btn btn1" type="submit">Delete</button></form>
+                    <form action="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">View</button></form>
+                </td>
+                {%endif%}
+                {%if session.athlete%}
+                <td class="btn-container">
+                    <a href="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">Comment</button></a>
+                    <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
+                </td>
+                {%endif%}
             </tr>
-            <!-- this is for every post in for the coaches -->
-            {%for post in coach_posts%}
-                <tr>
-                    <td>{{post.content}}</td>
-                    {%if session.coach%}
-                        <td class="btn-container">
-                            <form action="/post/{{post.id}}/edit_page" method=post><button class="btn btn1" type="submit">Edit</button></form>
-                            <form action="/post/{{post.id}}/delete" method=post><button class="btn btn1" type="submit">Delete</button></form>
-                            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">View</button></form>
-                        </td>
-                    {%endif%}
-                    {%if session.athlete%}
-                        <td class="btn-container">
-                            <form action="/post/{{post.id}}/comment" method=post><button class="btn btn1" type="submit">Comment</button></form>
-                            <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
-                        </td>
-                    {%endif%}
-
-                </tr>
-            {%endfor%}
-        </table>
+        {%endfor%}
+            </table>
     {%endif%}
 
     <!-- this is the sidebar menu -->
@@ -100,35 +101,7 @@
     </div>
 </div>
 
-{%if coach_posts%}
-<table>
-    <thead>
-        <th>Post Content</th>
-        <th>Likes</th>
-        <th>Actions</th>
-    </thead>
-<!-- this is for every post in for the coaches -->
-{%for post in coach_posts%}
-    <tr>
-        <td>{{post.content}}</td>
-        <td>{{post.like_count}}</td>
-        {%if session.coach%}
-        <td class="btn-container">
-            <form action="/post/{{post.id}}/edit_page"><button class="btn btn1" type="submit">Edit</button></form>
-            <form action="/post/{{post.id}}/delete"><button class="btn btn1" type="submit">Delete</button></form>
-            <form action="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">View</button></form>
-        </td>
-        {%endif%}
-        {%if session.athlete%}
-        <td class="btn-container">
-            <a href="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">Comment</button></a>
-            <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
-        </td>
-        {%endif%}
-    </tr>
-{%endfor%}
-</table>
-{%endif%}
+
 <div>
 <!-- {%if roster%}
 {%for athlete in roster%}
