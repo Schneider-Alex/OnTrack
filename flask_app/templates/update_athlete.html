@@ -16,7 +16,7 @@
         <input type="text" name="email" value="{{athlete.email}}" />
     </label>
     <label>Password: <input type="password" name="password" /></label>
-    <input type="hidden" name="id" value={{athlete.id}}>
+    <input type="hidden" name="id" value="{{athlete.id}}" />
     <input type="submit" value="update athlete" />
 </form>
 coach ID:
@@ -35,15 +35,23 @@ coach ID:
         {%if athlete_times %} {% for athlete_time in athlete_times %}
         <tr>
             <form action="/time/update" method="post">
-                <input type="hidden" name="athlete_id" value="{{athlete_time.id}}" />
-                <input type="hidden" name="isRelay" value=0>
-                <input type="hidden" name="coach_id" value={{athlete_time.coach_id}}>
+                <input
+                    type="hidden"
+                    name="athlete_id"
+                    value="{{athlete_time.id}}"
+                />
+                <input type="hidden" name="isRelay" value="0" />
+                <input
+                    type="hidden"
+                    name="coach_id"
+                    value="{{athlete_time.coach_id}}"
+                />
                 <td>
                     <select name="event_id" id="">
                         {% for event in events %} {% if event.name ==
-                        athlete_time.name%}
+                        athlete_time.event%}
                         <option value="{{event.id}}" selected>
-                            {{event.name}}
+                            {{athlete_time.event}}
                         </option>
                         {% else %}
                         <option value="{{event.id}}">{{event.name}}</option>
@@ -51,7 +59,8 @@ coach ID:
                     </select>
                 </td>
                 <td>
-                    <label>Minutes:
+                    <label
+                        >Minutes:
                         <input
                             type="number"
                             name="minutes"
@@ -61,7 +70,8 @@ coach ID:
                             value="{{athlete_time.minutes}}"
                         />
                     </label>
-                    <label>Seconds:
+                    <label
+                        >Seconds:
                         <input
                             type="number"
                             name="seconds"
