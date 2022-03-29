@@ -2,7 +2,8 @@ from unittest import result
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
 from flask_app import app
 from flask import flash, session
-from flask_app.models import event, post, time, athlete     
+from flask_app.models import event, post, time, athlete    
+import csv 
 
 
 class Time:
@@ -21,14 +22,6 @@ class Time:
         self.seconds = time['seconds']
         self.athlete = athlete.Athlete.get_athlete_by_id(self.athlete_id)
         
-
-    def time_display(self, data):
-        if data['time'] > 60:
-            self.time = self.time + (data['minutes'] / 60)
-            return self.time
-    #convert seconds time to track time (min. sec.00)
-
-    
     #CREATE
     @classmethod
     def create_times(cls, data):
@@ -78,8 +71,7 @@ class Time:
                     'event':row['name'],
                     'date':row['date']
                 }
-                # if this_time['time'] >= 60:
-                #     this_time['time'] = round(this_time['time'] / 60, 2)
+                
                 times.append(Time(this_time))
             return times
 
@@ -92,7 +84,7 @@ class Time:
         SELECT times.*, events.*, athletes.* FROM times
         JOIN events ON events.id = times.event_id
         JOIN athletes ON athletes.id = times.athlete_id
-        WHERE event.id = %(id)s AND times.coach_id =%(coach_id)s'''
+        WHERE events.id = %(id)s AND times.coach_id =%(coach_id)s'''
         
         results = connectToMySQL(cls.db).query_db(query, data)
         print(results)
@@ -253,6 +245,50 @@ class Time:
     def delete_time(cls, id):
         pass
 
+    @classmethod
+    def search_times_factors_coach_id(cls, data ):
+        if data['date'] != '' and data['athlete_id'] != '' and data['event_id'] != '':
+            query='''
+            SELECT times.*, events.*, athletes.* FROM times
+            JOIN events ON events.id = times.event_id
+            JOIN athletes ON athletes.id = times.athlete_id
+            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND date = %(date)s AND times.athlete_id= %(athlete_id)s'''
+
+            results = connectToMySQL(cls.db).query_db(query, data)
+            if len(results) < 1:
+                return 'No time found'
+            print(results, '$$$$$$$$$$$$$$$$$')
+            
+            return results
+    ### No date selected
+        if data['date'] == '' and data['athlete_id'] != '' and data['event_id'] != '':
+            query='''
+            SELECT times.*, events.*, athletes.* FROM times
+            JOIN events ON events.id = times.event_id
+            JOIN athletes ON athletes.id = times.athlete_id
+            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id= %(athlete_id)s'''
+        
+            results = connectToMySQL(cls.db).query_db(query, data)
+            if len(results) < 1:
+                return 'No time found'
+            print(results)
+            
+            return results
+    ### no date or athlete
+        if data['date'] == '' and data['athlete_id'] == '' and data['event_id'] != '':
+            query='''
+            SELECT times.*, events.*, athletes.* FROM times
+            JOIN events ON events.id = times.event_id
+            JOIN athletes ON athletes.id = times.athlete_id
+            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s'''
+        
+            results = connectToMySQL(cls.db).query_db(query, data)
+            if len(results) < 1:
+                return 'No time found'
+            print(results)
+            
+            return results
+
     @staticmethod
     def validate_time(data):
         is_valid = True
@@ -317,3 +353,38 @@ class Time:
                 if arr[i].event == arr[j].event:
                     arr.pop(arr[j])
         return arr
+
+    # @classmethod
+    # def write_csv(cls, id):
+    #     data= {'id' : id,
+    #     'coach_id': session['coach_id']}
+    #     # get times by event
+    #     query='''
+    #     SELECT times.*, events.*, athletes.* FROM times
+    #     JOIN events ON events.id = times.event_id
+    #     JOIN athletes ON athletes.id = times.athlete_id
+    #     WHERE event.id = %(id)s AND times.coach_id =%(coach_id)s'''
+        
+    #     results = connectToMySQL(cls.db).query_db(query, data)
+
+    #     c = csv.writer(open("temp.csv","wb"))
+    #     for row in results:
+    #         c.writerow(row)
+    #     c.close()
+    
+    # @classmethod
+    # def write_pdf(cls, id):
+    #     data= {'id' : id,
+    #     'coach_id': session['coach_id']}
+    #     # get times by event
+    #     query='''
+    #     SELECT times.*, events.*, athletes.* FROM times
+    #     JOIN events ON events.id = times.event_id
+    #     JOIN athletes ON athletes.id = times.athlete_id
+    #     WHERE events.id = %(id)s AND times.coach_id =%(coach_id)s'''
+        
+    #     results = connectToMySQL(cls.db).query_db(query, data)
+
+        
+
+        
