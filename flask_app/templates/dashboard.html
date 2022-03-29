@@ -15,6 +15,37 @@
             <a href="coach/roster/{{session.coach_id}}" class="btn btn3">View Roster</a>
             <a href="/coach/create/times" class="btn btn3">Add Times</a>
             <a href="/search/times" class="btn btn3">Search Times</a>
+            <div class="'bg-light">
+                {%if coach_posts%}
+                    <table class="bg-light table">
+                        <thead>
+                            <th>Post Content</th>
+                            <th>Likes</th>
+                            <th>Actions</th>
+                        </thead>
+                    <!-- this is for every post in for the coaches -->
+                    {%for post in coach_posts%}
+                        <tr>
+                            <td>{{post.content}}</td>
+                            <td>{{post.like_count}}</td>
+                            {%if session.coach%}
+                            <td class="btn-container">
+                                <form action="/post/{{post.id}}/edit_page"><button class="btn btn1" type="submit">Edit</button></form>
+                                <form action="/post/{{post.id}}/delete"><button class="btn btn1" type="submit">Delete</button></form>
+                                <form action="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">View</button></form>
+                            </td>
+                            {%endif%}
+                            {%if session.athlete%}
+                            <td class="btn-container">
+                                <a href="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">Comment</button></a>
+                                <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
+                            </td>
+                            {%endif%}
+                        </tr>
+                    {%endfor%}
+                        </table>
+                {%endif%}
+            </div>
         </div>
     {%endif%}
     {%if session.athlete%}
@@ -67,35 +98,7 @@
 </div>
 
     <!-- displaying the posts -->
-    {%if coach_posts%}
-        <table>
-            <thead>
-                <th>Post Content</th>
-                <th>Likes</th>
-                <th>Actions</th>
-            </thead>
-        <!-- this is for every post in for the coaches -->
-        {%for post in coach_posts%}
-            <tr>
-                <td>{{post.content}}</td>
-                <td>{{post.like_count}}</td>
-                {%if session.coach%}
-                <td class="btn-container">
-                    <form action="/post/{{post.id}}/edit_page"><button class="btn btn1" type="submit">Edit</button></form>
-                    <form action="/post/{{post.id}}/delete"><button class="btn btn1" type="submit">Delete</button></form>
-                    <form action="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">View</button></form>
-                </td>
-                {%endif%}
-                {%if session.athlete%}
-                <td class="btn-container">
-                    <a href="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">Comment</button></a>
-                    <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
-                </td>
-                {%endif%}
-            </tr>
-        {%endfor%}
-            </table>
-    {%endif%}
+   
 
 
 <div>
