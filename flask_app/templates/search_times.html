@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}{% block body %}
+
+<form action="/search/results" method="post" id="search_form">
+    <input type="hidden" name="coach_id" id="" value="{{session.coach_id}}" />
+    <hr class="mb-4" />
+    <label for="relay">relay:</label>
+    <input type="checkbox" name="relay" value="Relay" id="relay_check" />
+
+    <select name="athlete_id" id="">
+        {% if athletes %}
+        <option value="" selected></option>
+        {% for athlete in athletes %}
+        <option value="{{athlete.id}}">
+            {{athlete.last_name}}, {{athlete.first_name}}
+        </option>
+        {% endfor %} {% else %}
+        <p>
+            There are no Athletes to add times to. Go to add athletes to update
+            roster.
+        </p>
+        {% endif %}
+    </select>
+    <label
+        >Event:
+        <select name="event_id" id="">
+            <option value="False" selected></option>
+            {% for event in events %}
+            <option value="{{event.id}}">{{event.name}}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <!-- change date to dropdown? -->
+    <label
+        >date:
+        <input type="date" name="date" />
+    </label>
+    <input type="submit" name="" id="" value="Find Times" />
+</form>
+
+<div id="search_results"></div>
+
+{% endblock %}
