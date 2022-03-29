@@ -204,3 +204,9 @@ searchForTimes.addEventListener("click", function () {
   <input type="submit" name="" id="" value="Find Times" />
 </form>`;
 });
+
+let postBox = document.getElementById("Textarea-post");
+addTime.addEventListener("click", function () {
+    searchResults = document.getElementById("search_results");
+    postBox.innerText += searchResults.innerText;
+});
