@@ -47,7 +47,7 @@ def view_roster(id):
 def add_athletes():
     return render_template('add_athletes.html')
 
-
+#################CREATE athlete ##############################3333
 @app.route('/create_athlete_account', methods=['POST'])
 def create_athlete_account():
     print(request.form['first_name'])
@@ -59,13 +59,14 @@ def create_athlete_account():
 def success(id):
     return render_template('success.html', athlete = athlete.Athlete.get_athlete_by_id(id))
 
+######################Update Athlete info and times ##############################33
 @app.route('/coach/update/athlete/display/<int:id>')
 def display_for_update(id):
     this_athlete = athlete.Athlete.get_athlete_by_id(id)
     athlete_times = time.Time.get_time_by_athlete_id(id)
     events_ = event.Event.get_all_events()
-    print(athlete_times)
-    # athlete_times - athlete.Athlete.get  ########## get times by athlete id
+    
+   
     return render_template('update_athlete.html', athlete = this_athlete, athlete_times= athlete_times, events= events_)
 
 @app.route('/coach/update/athlete', methods=['POST'])
@@ -73,7 +74,7 @@ def update_athlete():
     athlete.Athlete.update_athlete(request.form)
     athlete_id=request.form['id']
     return redirect(f'/athlete/view/{athlete_id}') #confirmation page
-
+##############################################################3333
 
 @app.route('/logout')
 def logout():

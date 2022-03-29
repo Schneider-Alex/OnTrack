@@ -54,7 +54,7 @@ class Time:
         LEFT JOIN athletes ON athletes.id = times.athlete_id
         LEFT JOIN events ON events.id = times.event_id
         LEFT JOIN coaches ON coaches.id = times.coach_id
-        WHERE athlete_id = %(id)s;
+        WHERE athlete_id = %(id)s OR athlete_id2 = %(id)s OR athlete_id3 = %(id)s OR athlete_id4 = %(id)s;
         """
         results = connectToMySQL(cls.db).query_db(query,data)
         if len(results)<1:
@@ -247,13 +247,16 @@ class Time:
 
     @classmethod
     def search_times_factors_coach_id(cls, data ):
+        #All factors selected
         if data['date'] != '' and data['athlete_id'] != '' and data['event_id'] != '':
             query='''
             SELECT times.*, events.*, athletes.* FROM times
             JOIN events ON events.id = times.event_id
             JOIN athletes ON athletes.id = times.athlete_id
-            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND date = %(date)s AND times.athlete_id= %(athlete_id)s'''
-
+            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND date = %(date)s AND times.athlete_id= %(athlete_id)s
+            OR events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id2= %(athlete_id)s
+            OR events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id3= %(athlete_id)s
+            OR events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id4= %(athlete_id)s'''
             results = connectToMySQL(cls.db).query_db(query, data)
             if len(results) < 1:
                 return 'No time found'
@@ -266,7 +269,10 @@ class Time:
             SELECT times.*, events.*, athletes.* FROM times
             JOIN events ON events.id = times.event_id
             JOIN athletes ON athletes.id = times.athlete_id
-            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id= %(athlete_id)s'''
+            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id= %(athlete_id)s 
+            OR events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id2= %(athlete_id)s
+            OR events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id3= %(athlete_id)s
+            OR events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND times.athlete_id4= %(athlete_id)s'''
         
             results = connectToMySQL(cls.db).query_db(query, data)
             if len(results) < 1:
@@ -274,12 +280,30 @@ class Time:
             print(results)
             
             return results
-    ### no date or athlete
+
+            ##No athlete selected
+        if data['date'] != '' and data['athlete_id'] == '' and data['event_id'] != '':
+            query='''
+            SELECT times.*, events.*, athletes.* FROM times
+            JOIN events ON events.id = times.event_id
+            JOIN athletes ON athletes.id = times.athlete_id
+            WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s AND date = %(date)s'''
+        
+            results = connectToMySQL(cls.db).query_db(query, data)
+            if len(results) < 1:
+                return 'No time found'
+            print(results)
+            
+            return results
+    ### no date or athlete >>> event only
         if data['date'] == '' and data['athlete_id'] == '' and data['event_id'] != '':
             query='''
             SELECT times.*, events.*, athletes.* FROM times
             JOIN events ON events.id = times.event_id
             JOIN athletes ON athletes.id = times.athlete_id
+            JOIN athletes ON athletes.id = times.athlete_id2
+            JOIN athletes ON athletes.id = times.athlete_id3
+            JOIN athletes ON athletes.id = times.athlete_id4
             WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s'''
         
             results = connectToMySQL(cls.db).query_db(query, data)
@@ -288,6 +312,54 @@ class Time:
             print(results)
             
             return results
+        #### no event or date........Athlete only
+        if data['date'] == '' and data['athlete_id'] != '' and data['event_id'] == '':
+            query='''
+            SELECT times.*, events.*, athletes.* FROM times
+            JOIN athletes ON athletes.id = times.athlete_id
+            JOIN events ON events.id = times.event_id
+            WHERE times.athlete_id= %(athlete_id)s AND times.coach_id =%(coach_id)s
+            OR times.coach_id =%(coach_id)s AND times.athlete_id2= %(athlete_id)s
+            OR times.coach_id =%(coach_id)s AND times.athlete_id3= %(athlete_id)s
+            OR times.coach_id =%(coach_id)s AND times.athlete_id4= %(athlete_id)s'''
+        
+            results = connectToMySQL(cls.db).query_db(query, data)
+            if len(results) < 1:
+                return 'No time found'
+            print(results)
+            
+            return results
+
+        ###### no event or athlete>>>>>Date Only
+        if data['date'] != '' and data['athlete_id'] == '' and data['event_id'] == '':
+            query='''
+            SELECT times.*, events.*, athletes.* FROM times
+            JOIN events ON events.id = times.event_id
+            JOIN athletes ON athletes.id = times.athlete_id
+            LEFT JOIN athletes as a2 ON athletes.id = times.athlete_id2
+            LEFT JOIN athletes as a3 ON athletes.id = times.athlete_id3
+            LEFT JOIN athletes as a4 ON athletes.id = times.athlete_id4
+            WHERE date = %(date)s AND times.coach_id =%(coach_id)s'''
+
+            # query='''
+            # SELECT times.*, events.*, athletes.* FROM times
+            # JOIN events ON events.id = times.event_id
+            # JOIN athletes ON athletes.id = times.athlete_id
+            # JOIN athletes ON athletes.id = times.athlete_id2
+            # JOIN athletes ON athletes.id = times.athlete_id3
+            # JOIN athletes ON athletes.id = times.athlete_id4
+            # WHERE date = %(date)s AND times.coach_id =%(coach_id)s'''
+        
+            results = connectToMySQL(cls.db).query_db(query, data)
+            if len(results) < 1:
+                return 'No time found'
+            print(results)
+            
+            return results
+
+            #####Queries not working where event is not selected
+            #####Need queries for relays
+      
 
     @staticmethod
     def validate_time(data):

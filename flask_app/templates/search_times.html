@@ -23,7 +23,7 @@
     <label
         >Event:
         <select name="event_id" id="">
-            <option value="False" selected></option>
+            <option value="" selected></option>
             {% for event in events %}
             <option value="{{event.id}}">{{event.name}}</option>
             {% endfor %}
