@@ -1,28 +1,88 @@
-{%extends "layout.html"%}{% block body%} 
-
+{%extends "layout.html"%}{% block body%}
+<!-- container -->
 <div class="container form-style padding border-radius">
     <div class="menu-login font-light border-radius">
         <h2>New Post:</h2>
     </div>
-<form action="/coach/create_post/{{session['coach_id']}}" method="post" class="d-flex justify-content-between align-items-center menu-login border-radius">
-    <hr class="mb-4" />
-    <label
-        >Content:
-        <input type="text" name="content" class="input-field" style="width: 250px; ; height:250px" required/>
-    </label>
-    <input type="hidden" name="coach_id" value="{{session['coach_id']}}">
-    <input type="submit" value="Create Post" />
-</form>
+    <form
+        action="/coach/create_post/{{session['coach_id']}}"
+        method="post"
+        class="menu-login border-radius"
+    >
+        <!-- d-flex justify-content-between align-items-center -->
+        <hr class="mb-4" />
 
-{% with messages =
-get_flashed_messages() %}
-<!-- declare a variable called messages -->
-{% if messages %}
-<!-- check if there are any messages -->
-{% for message in messages %}
-<!-- loop through the messages -->
-<p>{{message}}</p>
-<!-- display each message in a paragraph tag -->
-{% endfor %} {% endif %} {% endwith %} {% endblock %}
+        <div class="form-group">
+            <label for="">Content: </label>
+            <textarea
+                class="form-control"
+                id="Textarea-post"
+                rows="5"
+                name="content"
+                required
+            ></textarea>
+        </div>
+        <input type="hidden" name="coach_id" value="{{session['coach_id']}}" />
+        <input class="mt-3" type="submit" value="Create Post" />
+    </form>
+    <button id="searchForTimes" class="text-right">search for times</button>
+    <form
+        action="/search/results"
+        method="post"
+        id="search_form"
+        class="bg-light"
+    >
+        <input
+            type="hidden"
+            name="coach_id"
+            id=""
+            value="{{session.coach_id}}"
+        />
+        <hr class="mb-4" />
+        <label for="relay">relay:</label>
+        <input type="checkbox" name="relay" value="Relay" id="relay_check" />
+
+        <select name="athlete_id" id="">
+            {% if athletes %}
+            <option value="" selected></option>
+            {% for athlete in athletes %}
+            <option value="{{athlete.id}}">
+                {{athlete.last_name}}, {{athlete.first_name}}
+            </option>
+            {% endfor %} {% else %}
+            <p>
+                There are no Athletes to add times to. Go to add athletes to
+                update roster.
+            </p>
+            {% endif %}
+        </select>
+        <label
+            >Event:
+            <select name="event_id" id="">
+                <option value="" selected></option>
+                {% for event in events %}
+                <option value="{{event.id}}">{{event.name}}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <!-- change date to dropdown? -->
+        <label
+            >date:
+            <input type="date" name="date" />
+        </label>
+        <input type="submit" name="" id="" value="Find Times" />
+    </form>
+
+    <div id="search_results" class="bg-light"></div>
+    <div id="searchTools"></div>
+
+    {% with messages = get_flashed_messages() %}
+    <!-- declare a variable called messages -->
+    {% if messages %}
+    <!-- check if there are any messages -->
+    {% for message in messages %}
+    <!-- loop through the messages -->
+    <p>{{message}}</p>
+    <!-- display each message in a paragraph tag -->
+    {% endfor %} {% endif %} {% endwith %} {% endblock %}
 </div>
-

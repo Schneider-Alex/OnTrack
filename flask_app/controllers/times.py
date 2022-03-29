@@ -34,7 +34,7 @@ def update_time():
 def success_update():
     return render_template('success_updated_time.html')
 
-
+################Search  time###################
 @app.route('/search/times')
 def search_times():
     _events = event.Event.get_all_events()
@@ -82,7 +82,7 @@ def make_pdf(id):
 def search_results():
 
     results = time.Time.search_times_factors_coach_id(request.form)
-    print(results, '^^^^^', results[0])
+
 
     return jsonify(results)
 
