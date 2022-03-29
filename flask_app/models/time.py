@@ -333,7 +333,7 @@ class Time:
         ###### no event or athlete>>>>>Date Only
         if data['date'] != '' and data['athlete_id'] == '' and data['event_id'] == '':
             query='''
-            SELECT times.*, events.*, athletes.* FROM times
+            SELECT times.*, events.*, athletes.*, a2.*, a3.*, a4.*  FROM times
             JOIN events ON events.id = times.event_id
             JOIN athletes ON athletes.id = times.athlete_id
             LEFT JOIN athletes as a2 ON athletes.id = times.athlete_id2
