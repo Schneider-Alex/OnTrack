@@ -3,7 +3,7 @@ from flask_app import app
 from flask import render_template, redirect, request, session, flash, url_for, make_response, jsonify
 from flask_app.models import coach, time, athlete, post, event
 from flask_app.controllers import coaches, athletes, posts, events
-import pdfkit  #########install at command line, similar to flask
+# import pdfkit  #########install at command line, similar to flask
 
 #CREATE
 @app.route('/coach/create/times')
