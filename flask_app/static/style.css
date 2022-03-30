@@ -1,151 +1,160 @@
 .index::before {
-  background: linear-gradient(0deg, rgba(46, 41, 75, 0.9), rgba(38, 0, 255, 0.3)), 
-              url("https://www.goodfreephotos.com/albums/sports/female-runners-on-the-race-track.jpg") no-repeat center center fixed;
-  content: '';
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  position:absolute;
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
+    background: linear-gradient(
+            0deg,
+            rgba(46, 41, 75, 0.9),
+            rgba(38, 0, 255, 0.3)
+        ),
+        url("https://www.goodfreephotos.com/albums/sports/female-runners-on-the-race-track.jpg")
+            no-repeat center center fixed;
+    content: "";
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
 }
 .header {
-  background-color: #333; 
-  margin-bottom: 20px; 
-  color: white;
+    background-color: #333;
+    margin-bottom: 20px;
+    color: white;
 }
 .form-style {
-  background-color: #333;
-  padding: 10px;
-  text-shadow: 0px 1px 1px black;
-  box-shadow: 0px 2px 5px #333;
+    background-color: #333;
+    padding: 10px;
+    text-shadow: 0px 1px 1px black;
+    box-shadow: 0px 2px 5px #333;
 }
 .form-style-light {
-  background-color: #CCC;
-  padding: 10px 20px;
-  text-shadow: 0px 1px 1px black;
-  box-shadow: 0px 2px 5px black;
-  transition: 0.5s;
+    background-color: #ccc;
+    padding: 10px 20px;
+    text-shadow: 0px 1px 1px black;
+    box-shadow: 0px 2px 5px black;
+    transition: 0.5s;
 }
 .form-style-light:hover {
-  background-color: rgb(223, 223, 223);
-  transition: 0.5s;
+    background-color: rgb(223, 223, 223);
+    transition: 0.5s;
 }
 .border-radius {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 .menu-login {
-  background: #CCC;
-  padding: 10px 20px;
-  transition: 0.5s;
+    background: #ccc;
+    padding: 10px 20px;
+    transition: 0.5s;
 }
 .menu-login:hover {
-  background: rgb(223, 223, 223);
-  transition: 0.5s;
+    background: rgb(223, 223, 223);
+    transition: 0.5s;
 }
 .input-field {
-  background: rgb(223, 223, 223);
-  border-radius: 10px;
-  transition: 0.5s;
+    background: rgb(223, 223, 223);
+    border-radius: 10px;
+    transition: 0.5s;
 }
 .input-field:hover {
-  border-color: white;
-  transition: 0.5s;
+    border-color: white;
+    transition: 0.5s;
 }
 .font-light {
-  font-weight: 350;
+    font-weight: 350;
 }
 .gap {
-  gap: 20px;
+    gap: 20px;
 }
 .gap-heavy {
-  gap: 40px;
+    gap: 40px;
 }
 .padding {
-  padding: 20px 20px;
+    padding: 20px 20px;
 }
 
 /* HTML tags */
 h2 {
-  margin: 0px;
+    margin: 0px;
 }
 svg {
-  color: white;
-  transition: 0.5s;
+    color: white;
+    transition: 0.5s;
 }
 svg:hover {
-  color: gray;
-  transition: 0.5s;
+    color: gray;
+    transition: 0.5s;
 }
 
 /* button hovering effects */
 .btn {
-  margin: 10px 0px;
-  border: 1px solid #333;
-  padding: 5px 5px;
-  cursor: pointer;
-  transition: 0.8s;
-  position: relative;
-  box-shadow: 0px 2px 5px #333;
+    margin: 10px 0px;
+    border: 1px solid #333;
+    padding: 5px 5px;
+    cursor: pointer;
+    transition: 0.8s;
+    position: relative;
+    box-shadow: 0px 2px 5px #333;
 }
-.btn1{
-  color: #333;
+.btn1 {
+    color: #333;
 }
-.btn1:hover{
-  color: #fff;
-  content: "";
-  background: #333;
-  transition: 0.3s;
+.btn1:hover {
+    color: #fff;
+    content: "";
+    background: #333;
+    transition: 0.3s;
 }
-.btn2{
-  color: #fff;
-  padding: 0px;
-  margin: 0px;
-  cursor: pointer;
+.btn2 {
+    color: #fff;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
 }
-.btn2:hover{
-  color: gray;
-  content: "";
-  background: transparent;
-  transition: 0.3s;
+.btn2:hover {
+    color: gray;
+    content: "";
+    background: transparent;
+    transition: 0.3s;
 }
-.btn3{
-  color: #fff;
-  border: 2px solid #fff;
-  width: fit-content;
-  height: fit-content;
-  padding: 3px 5px;
+.btn3 {
+    color: #fff;
+    border: 2px solid #fff;
+    width: fit-content;
+    height: fit-content;
+    padding: 3px 5px;
 }
-.btn3:hover{
-  color: gray;
-  border: 2px solid gray;
-  content: "";
-  background: transparent;
-  transition: 0.3s;
+.btn3:hover {
+    color: gray;
+    border: 2px solid gray;
+    content: "";
+    background: transparent;
+    transition: 0.3s;
 }
 
 /* form text area hover effects */
 .text-area {
-  color: white;
-  border: 1px solid #333;
-  background-color: inherit;
-  transition: 0.8s;
+    color: white;
+    border: 1px solid #333;
+    background-color: inherit;
+    transition: 0.8s;
 }
 .text-area:hover {
-  color: #333;
-  background: white;
-  transition: 0.3s;
+    color: #333;
+    background: white;
+    transition: 0.3s;
 }
 
-.btn-container{
-  display: flex;
-  justify-content: space-evenly;
+.btn-container {
+    display: flex;
+    justify-content: space-evenly;
 }
 
-.flex{
-  display: flex;
+.flex {
+    display: flex;
 }
 /* stuff for testing */
+
+#Textarea-post {
+    width: 80%;
+}
