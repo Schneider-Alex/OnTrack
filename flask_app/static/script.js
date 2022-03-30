@@ -153,12 +153,21 @@ search_form.onsubmit = function (e) {
       </table>`;
                 results = document.getElementById("results");
                 for (i = 0; i < data.length; i++) {
-                    results.innerHTML += `<tr>
+                    if (data[i].athlete2) {
+                        results.innerHTML += `<tr>
+                  <td>${data[i].name}</td>
+                  <td>${data[i].first_name} ${data[i].last_name}, ${data[i].athlete2}, ${data[i].athlete3}, ${data[i].athlete4}</td>
+                  <td>${data[i].time}</td>
+                  <td>${data[i].date}</td>
+                </tr>`;
+                    } else {
+                        results.innerHTML += `<tr>
       <td>${data[i].name}</td>
       <td>${data[i].first_name} ${data[i].last_name}</td>
       <td>${data[i].time}</td>
       <td>${data[i].date}</td>
     </tr>`;
+                    }
                 }
             }
         });

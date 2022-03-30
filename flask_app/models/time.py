@@ -277,8 +277,8 @@ class Time:
             results = connectToMySQL(cls.db).query_db(query, data)
             if len(results) < 1:
                 return 'No time found'
-            print(results)
-            
+            if int(data['event_id']) > 3 and int(data['event_id']) < 8 :
+                results = cls.relay_names(results)
             return results
 
             ##No athlete selected
@@ -292,25 +292,26 @@ class Time:
             results = connectToMySQL(cls.db).query_db(query, data)
             if len(results) < 1:
                 return 'No time found'
-            print(results)
-            
+            if int(data['event_id']) > 3 and int(data['event_id']) < 8 :
+                results = cls.relay_names(results)
+
             return results
+
     ### no date or athlete >>> event only
         if data['date'] == '' and data['athlete_id'] == '' and data['event_id'] != '':
             query='''
             SELECT times.*, events.*, athletes.* FROM times
             JOIN events ON events.id = times.event_id
             JOIN athletes ON athletes.id = times.athlete_id
-            JOIN athletes ON athletes.id = times.athlete_id2
-            JOIN athletes ON athletes.id = times.athlete_id3
-            JOIN athletes ON athletes.id = times.athlete_id4
             WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s'''
         
             results = connectToMySQL(cls.db).query_db(query, data)
             if len(results) < 1:
                 return 'No time found'
-            print(results)
             
+            if int(data['event_id']) > 3 and int(data['event_id']) < 8 :
+                results = cls.relay_names(results)
+            print(results)
             return results
         #### no event or date........Athlete only
         if data['date'] == '' and data['athlete_id'] != '' and data['event_id'] == '':
@@ -327,39 +328,41 @@ class Time:
             if len(results) < 1:
                 return 'No time found'
             print(results)
-            
+            for row in results:
+                if int(row['event_id']) > 3 and int(row['event_id']) < 8 :
+                    row = cls.relay_names(row)
             return results
 
         ###### no event or athlete>>>>>Date Only
         if data['date'] != '' and data['athlete_id'] == '' and data['event_id'] == '':
             query='''
-            SELECT times.*, events.*, athletes.*, a2.*, a3.*, a4.*  FROM times
+            SELECT times.*, events.*, athletes.* FROM times
             JOIN events ON events.id = times.event_id
             JOIN athletes ON athletes.id = times.athlete_id
-            LEFT JOIN athletes as a2 ON athletes.id = times.athlete_id2
-            LEFT JOIN athletes as a3 ON athletes.id = times.athlete_id3
-            LEFT JOIN athletes as a4 ON athletes.id = times.athlete_id4
             WHERE date = %(date)s AND times.coach_id =%(coach_id)s'''
-
-            # query='''
-            # SELECT times.*, events.*, athletes.* FROM times
-            # JOIN events ON events.id = times.event_id
-            # JOIN athletes ON athletes.id = times.athlete_id
-            # JOIN athletes ON athletes.id = times.athlete_id2
-            # JOIN athletes ON athletes.id = times.athlete_id3
-            # JOIN athletes ON athletes.id = times.athlete_id4
-            # WHERE date = %(date)s AND times.coach_id =%(coach_id)s'''
         
             results = connectToMySQL(cls.db).query_db(query, data)
             if len(results) < 1:
                 return 'No time found'
             print(results)
-            
+            for row in results:
+                if int(row['event_id']) > 3 and int(row['event_id']) < 8 :
+                    print(row)
+                    row = cls.relay_names(row)
             return results
-
-            #####Queries not working where event is not selected
-            #####Need queries for relays
       
+    @classmethod
+    def relay_names(cls, data):
+        if type(data) == list:
+            for row in data:
+                row['athlete2'] = athlete.Athlete.get_athlete_by_id(row['athlete_id2']).full_name
+                row['athlete3'] = athlete.Athlete.get_athlete_by_id(row['athlete_id3']).full_name
+                row['athlete4'] = athlete.Athlete.get_athlete_by_id(row['athlete_id4']).full_name
+        else:
+            data['athlete2'] = athlete.Athlete.get_athlete_by_id(data['athlete_id2']).full_name
+            data['athlete3'] = athlete.Athlete.get_athlete_by_id(data['athlete_id3']).full_name
+            data['athlete4'] = athlete.Athlete.get_athlete_by_id(data['athlete_id4']).full_name
+        return data
 
     @staticmethod
     def validate_time(data):
