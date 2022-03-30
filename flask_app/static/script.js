@@ -144,7 +144,7 @@ search_form.onsubmit = function (e) {
       <tr>
         <th scope="col">Event</th>
         <th scope="col">Athlete</th>
-        <th scope="col">time</th> 
+        <th scope="col">Time (MM:SS:ss)</th> 
         <th scope="col">Date</th>
       </tr>
       </thead>
@@ -153,18 +153,31 @@ search_form.onsubmit = function (e) {
       </table>`;
                 results = document.getElementById("results");
                 for (i = 0; i < data.length; i++) {
+                    let seconds = data[i].time%60
+                    let minutes = parseInt((data[i].time-seconds)/60)
+                    console.log(seconds)
+                    console.log(minutes)
+                    if (minutes <1){
+                        time_string=seconds.toFixed(2)
+                    }
+                    if (minutes>1){
+                        time_string= `${minutes}:${seconds.toFixed(2)}`
+                    }
+                    if(seconds<10 && minutes>1){
+                        time_string=`${minutes}:0${seconds.toFixed(2)}`
+                    }
                     if (data[i].athlete2) {
                         results.innerHTML += `<tr>
                   <td>${data[i].name}</td>
                   <td>${data[i].first_name} ${data[i].last_name}, ${data[i].athlete2}, ${data[i].athlete3}, ${data[i].athlete4}</td>
-                  <td>${data[i].time}</td>
+                  <td>${time_string}</td>
                   <td>${data[i].date}</td>
                 </tr>`;
                     } else {
                         results.innerHTML += `<tr>
       <td>${data[i].name}</td>
       <td>${data[i].first_name} ${data[i].last_name}</td>
-      <td>${data[i].time}</td>
+      <td>${time_string}</td>
       <td>${data[i].date}</td>
     </tr>`;
                     }
