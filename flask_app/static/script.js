@@ -153,13 +153,69 @@ search_form.onsubmit = function (e) {
       </table>`;
                 results = document.getElementById("results");
                 for (i = 0; i < data.length; i++) {
-                    results.innerHTML += `<tr>
+                    if (data[i].athlete2) {
+                        results.innerHTML += `<tr>
+                  <td>${data[i].name}</td>
+                  <td>${data[i].first_name} ${data[i].last_name}, ${data[i].athlete2}, ${data[i].athlete3}, ${data[i].athlete4}</td>
+                  <td>${data[i].time}</td>
+                  <td>${data[i].date}</td>
+                </tr>`;
+                    } else {
+                        results.innerHTML += `<tr>
       <td>${data[i].name}</td>
       <td>${data[i].first_name} ${data[i].last_name}</td>
       <td>${data[i].time}</td>
       <td>${data[i].date}</td>
     </tr>`;
+                    }
                 }
             }
         });
 };
+
+searchForTimes = document.getElementById("searchForTimes");
+searchForTimes.addEventListener("click", function () {
+    console.log("hi");
+    searchTools.innerHTML += `<form action="/search/results" method="post" id="search_form">
+  <input type="hidden" name="coach_id" id="" value="{{session.coach_id}}" />
+  <hr class="mb-4" />
+  <label for="relay">relay:</label>
+  <input type="checkbox" name="relay" value="Relay" id="relay_check" />
+
+  <select name="athlete_id" id="">
+      {% if athletes %}
+      <option value="" selected></option>
+      {% for athlete in athletes %}
+      <option value="{{athlete.id}}">
+          {{athlete.last_name}}, {{athlete.first_name}}
+      </option>
+      {% endfor %} {% else %}
+      <p>
+          There are no Athletes to add times to. Go to add athletes to update
+          roster.
+      </p>
+      {% endif %}
+  </select>
+  <label
+      >Event:
+      <select name="event_id" id="">
+          <option value="" selected></option>
+          {% for event in events %}
+          <option value="{{event.id}}">{{event.name}}</option>
+          {% endfor %}
+      </select>
+  </label>
+  <!-- change date to dropdown? -->
+  <label
+      >date:
+      <input type="date" name="date" />
+  </label>
+  <input type="submit" name="" id="" value="Find Times" />
+</form>`;
+});
+
+let postBox = document.getElementById("Textarea-post");
+addTime.addEventListener("click", function () {
+    searchResults = document.getElementById("search_results");
+    postBox.innerText += searchResults.innerText;
+});
