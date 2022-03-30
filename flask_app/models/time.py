@@ -1,3 +1,4 @@
+from unicodedata import decimal
 from unittest import result
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
 from flask_app import app
@@ -304,7 +305,9 @@ class Time:
             JOIN events ON events.id = times.event_id
             JOIN athletes ON athletes.id = times.athlete_id
             WHERE events.id = %(event_id)s AND times.coach_id =%(coach_id)s'''
-        
+            # JOIN athletes ON athletes.id = times.athlete_id2
+            # JOIN athletes ON athletes.id = times.athlete_id3
+            # JOIN athletes ON athletes.id = times.athlete_id4
             results = connectToMySQL(cls.db).query_db(query, data)
             if len(results) < 1:
                 return 'No time found'
@@ -350,6 +353,10 @@ class Time:
                     print(row)
                     row = cls.relay_names(row)
             return results
+
+            #####Queries not working where event is not selected
+            #####Need queries for relays
+
       
     @classmethod
     def relay_names(cls, data):
@@ -402,7 +409,7 @@ class Time:
 
     @staticmethod
     def parsed_time_data_update(data):
-        time_ = float(data['seconds']) + float(data['minutes'] * 60)
+        time_ = (float(data['seconds'])) + (int(data['minutes']) * 60)
         print(time_)
         parsed_data={
             'date':data['date'],
