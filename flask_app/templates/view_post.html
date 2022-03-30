@@ -1,6 +1,12 @@
 {%extends "layout.html"%}{%block body%}
-    <p>{{post.content}}</p>
+<div class="container form-style padding border-radius">
+    <div class="form-style-light font-light border-radius text-center">
+        <h2 class="font-light">{{post.content}}</h2>
+    </div>
+    <hr style="color: black;" size="5">
+
     {%if session.athlete%}
+    <div class="form-style-light font-light border-radius">
         <form action="/add/comment/to/post" method="post">
             <input type="hidden" name="post_id" value="{{post.id}}">
             <input type="hidden" name="user_id" value="{{session.athlete}}">
@@ -11,10 +17,14 @@
             </select>
             <button type="submit">Comment</button>
         </form>
+    </div>
     {% endif %}
     {% if all_comments %}
+    <div class="form-style-light font-light border-radius text-center">
         {% for comment in all_comments %}
-            <p>{{comment.comment}}</p>
+            <p class=font-light>{{comment.comment}}</p>
         {% endfor %}
+    </div>
     {% endif %}
 {% endblock %}
+</div>
