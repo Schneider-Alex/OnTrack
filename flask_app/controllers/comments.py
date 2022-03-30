@@ -10,6 +10,7 @@ def show_post(post_id):
     all_comment_content = comment_content.Comment_content.get_all_comments()
     all_comments = comment.Comment.get_all_comments(post_id)
     return render_template('view_post.html', post=this_post, all_comment_content=all_comment_content, all_comments=all_comments)
+    
 @app.route('/add/comment/to/post', methods=['POST'])
 def add_comment_to_post():
     comment.Comment.create_comment(request.form)
