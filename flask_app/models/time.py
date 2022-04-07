@@ -312,7 +312,7 @@ class Time:
             if len(results) < 1:
                 return 'No time found'
             
-            if int(data['event_id']) > 3 and int(data['event_id']) < 8 :
+            if (int(data['event_id']) > 4 and int(data['event_id']) < 9) or (int(data['event_id']) > 16 and int(data['event_id']) < 21):
                 results = cls.relay_names(results)
             print(results)
             return results

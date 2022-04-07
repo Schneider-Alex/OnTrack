@@ -1,7 +1,10 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "79503ce8818fff6a23b707db78b2a9c4a7933b1ed625d7e892b110e6b970b82c"
+
+            "sha256": "79503ce8818fff6a23b707db78b2a9c4a7933b1ed625d7e892b110e6b970b82c
+            "sha256": "24751b12f28639b9456a02267bbe27bec1f247e622bec1022f568617de55f7b0"
+
         },
         "pipfile-spec": 6,
         "requires": {
@@ -105,6 +108,7 @@
         },
         "click": {
             "hashes": [
+
                 "sha256:24e1a4a9ec5bf6299411369b208c1df2188d9eb8d916302fe6bf03faed227f1e",
                 "sha256:479707fe14d9ec9a0757618b7a100a0ae4c4e236fac5b7f80ca68028141a1a72"
             ],
@@ -118,6 +122,13 @@
             ],
             "markers": "sys_platform == 'win32'",
             "version": "==0.4.4"
+=======
+                "sha256:5e0d195c2067da3136efb897449ec1e9e6c98282fbf30d7f9e164af9be901a6b",
+                "sha256:7ab900e38149c9872376e8f9b5986ddcaf68c0f413cf73678a0bca5547e6f976"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==8.1.1"
+
         },
         "flask": {
             "hashes": [

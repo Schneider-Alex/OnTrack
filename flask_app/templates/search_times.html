@@ -1,11 +1,14 @@
 {% extends 'layout.html' %}{% block body %}
 
-<form action="/search/results" method="post" id="search_form">
+<form action="/search/results" method="post" id="search_form" class="menu-login border-radius">
     <input type="hidden" name="coach_id" id="" value="{{session.coach_id}}" />
     <hr class="mb-4" />
     <label for="relay">relay:</label>
     <input type="checkbox" name="relay" value="Relay" id="relay_check" />
+
     <label for="athlete_id">Athlete:</label>
+
+
     <select name="athlete_id" id="">
         {% if athletes %}
         <option value="" selected></option>
