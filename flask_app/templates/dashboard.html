@@ -1,12 +1,12 @@
 {%extends "layout.html"%}{%block body%}
 <!-- this is the main content on the page -->
 <div class="d-flex justify-content-between gap">
-    <div style="display: flex; flex-direction: column; ">
+    <div style="display: flex; flex-direction: column; " class="mx-3">
     {%if session.coach%}
         <div class="col-8 align-self-start form-style padding" style="width:100%;">
             <div class="d-flex justify-content-between form-style-light border-radius" >
                 <!-- this may be temporary -->
-                <h2 class="font-light d-flex align-items-center">Welcome Coach {{session.first_name}}</h2>
+                <h2 class="font-light d-flex align-items-center mx-3">Welcome Coach {{session.first_name}}</h2>
                 <div class="d-flex justify-content-between gap-heavy">
                     
                     <form action="/coach/create_post_page/{{session.coach_id}}"><button type="submit" class="btn btn1">Create New Post</button></form>
