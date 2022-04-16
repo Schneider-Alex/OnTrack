@@ -3,7 +3,7 @@ from flask_app import app
 from flask import render_template, redirect, request, session, flash, url_for, make_response, jsonify
 from flask_app.models import coach, time, athlete, post, event
 from flask_app.controllers import coaches, athletes, posts, events
-# import pdfkit  #########install at command line, similar to flask
+import pdfkit  #########install at command line
 
 #CREATE
 @app.route('/coach/create/times')
@@ -19,8 +19,7 @@ def create_new_times():
         return redirect('/dashboard')
     return redirect('/coach/create/times')
 
-#READ
-#render View time page
+
 
 #UPDATE
 @app.route('/time/update', methods=['POST'])
@@ -34,14 +33,24 @@ def update_time():
 def success_update():
     return render_template('success_updated_time.html')
 
-################Search  time###################
+################ Search time ###################
 @app.route('/search/times')
 def search_times():
     _events = event.Event.get_all_events()
     _athletes = athlete.Athlete.get_athletes_by_coach_id(session['coach_id'])
     # _date = time.Time.get_times_by_coach_date()
     return render_template('search_times.html', events= _events, athletes=_athletes)
+    
+@app.route('/search/results', methods= ['POST'])
+def search_results():
 
+    results = time.Time.search_times_factors_coach_id(request.form)
+
+
+    return jsonify(results)
+
+
+########## Report generation (in progress) ###############
 @app.route('/pdf', methods=['POST'])
 def pdf_():
     print(request.form['event_id'])
@@ -78,12 +87,5 @@ def make_pdf(id):
 
 #     return response
 
-@app.route('/search/results', methods= ['POST'])
-def search_results():
-
-    results = time.Time.search_times_factors_coach_id(request.form)
-
-
-    return jsonify(results)
 
     

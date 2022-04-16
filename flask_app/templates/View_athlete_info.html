@@ -3,7 +3,7 @@
     <div class="form-style-light font-light border-radius text-center">
         <h2 class="font-light">{{ athlete.full_name }}</h2>
     </div>
-    <hr style="color: black;" size="5">
+    <hr style="color: black" size="5" />
     <table class="table form-style-light font-light border-radius">
         <thead>
             <tr>
@@ -19,9 +19,13 @@
                 <td>{{athlete.last_name}}</td>
                 <td>{{athlete.email}}</td>
                 {%if session['coach']%}
-                    <td>
-                        <a href="/coach/update/athlete/display/{{athlete.id}}" class="btn btn1">Edit</a>
-                    </td>
+                <td>
+                    <a
+                        href="/coach/update/athlete/display/{{athlete.id}}"
+                        class="btn btn1"
+                        >Edit</a
+                    >
+                </td>
                 {%endif%}
             </tr>
             {% endif %}
@@ -29,23 +33,19 @@
     </table>
 </div>
 
-<!-- Justin has still not styled this -->
 {%if times%}
-    <table class="table">
-        
-            <tr>
-                <td>Event</td>
-                <td>Date</td>
-                <td>Time</td>
-            </tr>
-        {%for time in times%}
-            <tr>
-                <td>{{time.event}}</td>
-                <td>{{time.date}}</td>
-                <td>{{time.time}}</td>
-            </tr>
-        {%endfor%}
-    </table>
-{%endif%}
-
-{% endblock %}
+<table class="table">
+    <tr>
+        <td>Event</td>
+        <td>Date</td>
+        <td>Time</td>
+    </tr>
+    {%for time in times%}
+    <tr>
+        <td>{{time.event}}</td>
+        <td>{{time.date}}</td>
+        <td>{{time.time}}</td>
+    </tr>
+    {%endfor%}
+</table>
+{%endif%} {% endblock %}

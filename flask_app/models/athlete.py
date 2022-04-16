@@ -77,9 +77,6 @@ class Athlete:
 
     @classmethod
     def register_athlete(cls, data):
-        ('>>>>>>>>>>i am here')
-        # if not cls.validate_submission(data):
-        #     return False
         data = cls.parsed_data(data)
         print(data)
         query= '''
@@ -135,7 +132,7 @@ class Athlete:
         for row in results:
             athletes.append(cls(row))
         return athletes
-    #######Should display by order of last name
+    ##Should display by order of last name
 
     @classmethod
     def get_athlete_by_email(cls, data):
@@ -174,7 +171,6 @@ class Athlete:
     def login(cls,data):
         athlete = Athlete.get_athlete_by_email(data)
         if athlete:
-            # this should change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if bcrypt.check_password_hash(athlete.password, data['password']):
                 print('hello')
                 session['athlete_id'] = athlete.id

@@ -38,7 +38,7 @@
                             <th>Likes</th>
                             <th>Actions</th>
                         </thead>
-                    <!-- this is for every post in for the coaches -->
+                    
                     {%for post in coach_posts%}
                         <tr>
                             <td>{{post.content}}</td>
@@ -52,7 +52,7 @@
                             {%endif%}
                             {%if session.athlete%}
                             <td class="btn-container">
-                                <a href="/post/{{post.id}}/comment"><button class="btn btn1" type="submit">Comment</button></a>
+                                <a href="/post/{{post.id}}/comment"><button class="btn btn1 mx-3" type="submit">Comment</button></a>
                                 <form action=/post/{{post.id}}/like method=post><button class="btn btn1" type="submit">Like</button></form>
                             </td>
                             {%endif%}

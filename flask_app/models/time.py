@@ -11,7 +11,7 @@ class Time:
     db = 'on_track'
     def __init__(self, data): 
         self.id = data['id']
-        self.time = data['time'] # + (data['minutes'] * 60)  --use dropdown for minutes
+        self.time = data['time'] 
         self.date =data['date']
         self.athlete_id = data['athlete_id']
         self.coach_id = data['coach_id']
@@ -26,13 +26,6 @@ class Time:
     #CREATE
     @classmethod
     def create_times(cls, data):
-        #Can add validation so same names are not picked more than once( use a set function to make just unique values then compare length)
-                #--Also no ensure events has 'relay' in it (can do with event id match)
-        # data['time'] = cls.parsed_time_data(data['time'])
-        #if minutes entered:  run method to convert
-        # data = {time = data['time] + (data['minutes'] * 60)  --use dropdown for minutes
-        # if data['minutes'] != '':
-        #     data['time'] = data['time'] + data['minutes'] * 60
         data = cls.parsed_time_data(data)
         if data['isRelay'] == '1':
             query='''
@@ -91,34 +84,6 @@ class Time:
         print(results)
         if len(results) < 1:
             return results
-        #Use AJAX to display vs. make instances
-        #will also need coach id
-        #allows coach and students to view top results have order by functionality for ordering by last name, time length
-        #What about relays?
-
-    # @classmethod
-    # def get_times_by_athlete_id(cls, id):
-    #     data = {'athlete_id': id,
-    #             'coach_id' : session['coach_id']}
-    #     query = '''SELECT times.time, times.date, times.id, times.event_id, events.name  FROM times
-    #     JOIN events ON events.id = times.event_id
-    #     WHERE times.athlete_id = %(athlete_id)s
-    #     AND times.coach_id = %(coach_id)s;'''
-    #     results = connectToMySQL(cls.db).query_db(query, data)
-    #     print(results)
-    #     if len(results) < 1:
-    #         return results
-    #     times=[]
-    #     for row in results:
-    #         this_time = {'time': row['time'],
-    #                     'name': row['name'],
-    #                     'date' : row['date'],
-    #                     'id' : row['id']
-    #                     }
-    #         times.append(this_time)
-    #     print('!!!!!@@@@', times)
-    #     return times
-    #coach id in hidden input
 
     @classmethod
     def get_best_by_event_and_athlete(cls, athlete_id, event_id):
@@ -354,8 +319,6 @@ class Time:
                     row = cls.relay_names(row)
             return results
 
-            #####Queries not working where event is not selected
-            #####Need queries for relays
 
       
     @classmethod
@@ -374,9 +337,6 @@ class Time:
     @staticmethod
     def validate_time(data):
         is_valid = True
-        # if float(data['time']) < 0 or float(data['time']) > 3000:
-        #     flash('valid times must be greater than 1 and less than 3,000 seconds', 'time')
-        #     is_valid = False
         if data['date'] == '': 
             flash('must enter date', 'event')
             is_valid = False
@@ -424,9 +384,7 @@ class Time:
             parsed_data['athlete_id3'] = data['athlete_id3']
             parsed_data['athlete_id4'] = data['athlete_id4']
         return parsed_data  
-    #Optional if time: 
-    # -group times by date (per athletes, all athletes),  need to add date column to times table in db
-    # -group times by athlete
+   
 
     @staticmethod
     def get_top_only(arr):
@@ -436,6 +394,7 @@ class Time:
                     arr.pop(arr[j])
         return arr
 
+# Generate csv  ###In progress ####
     # @classmethod
     # def write_csv(cls, id):
     #     data= {'id' : id,

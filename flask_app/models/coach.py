@@ -40,8 +40,6 @@ class Coach:
         coach_id = connectToMySQL(cls.db).query_db(query,data)
         session['coach_id'] = coach_id
         session['first_name'] = data['first_name']
-        # # session['coach']=True
-        # # removed this functionality so that coaches must log in after creating account
         return coach_id
 
 
@@ -127,22 +125,15 @@ class Coach:
         if not EMAIL_REGEX.match(input['email']): 
             flash("Invalid email address!", 'login')
             is_valid = False   
-        # if len(input['bio']) < 1:
-        #     flash('bio must enter at least 20 characters')
-        #     is_valid = False
-        # if len(input['coach_city']) < 1:
-        #     flash('city must enter at least 1 characters')
-        #     is_valid = False
-        ##validation for state selector
+        
         return is_valid
-        # Check to see if email already in db
+       
 
 
     @classmethod
     def login(cls,data):
         coach = Coach.get_coach_by_email(data)
         if coach:
-            # this should change!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if bcrypt.check_password_hash(coach.password, data['password']):
                 session['coach_id'] = coach.id
                 session['first_name'] = coach.first_name

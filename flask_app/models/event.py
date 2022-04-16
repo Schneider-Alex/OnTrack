@@ -56,9 +56,6 @@ class Event:
             return False
         return cls(results[0])
 
-
-
-    #not sure if this will be needed
     @classmethod
     def get_events_by_user_id(cls,id):
         data = {'user_id' : id}
@@ -81,7 +78,6 @@ class Event:
                 events.append(cls(this_event))
         return events
 
-    
     #UPDATE
 
     @classmethod
@@ -102,7 +98,7 @@ class Event:
         query = """
         DELETE FROM events
         WHERE id = %(id)s
-        ;""" # * in delete query
+        ;""" 
         return connectToMySQL(cls.db).query_db(query, data)
 
 
@@ -110,7 +106,7 @@ class Event:
 ########### VALIDATE EVENT !!!!!!!!!!!!!!!!!
     @classmethod
     def validate_event(cls, data):
-        data = cls.parse_location(data) #could make as cls method and put here one time instead of contollers multiple times
+        data = cls.parse_location(data) 
         is_valid = True # assume true
         if len(data['name']) < 5:
             flash('Name must be 5 or more characters', 'event')
