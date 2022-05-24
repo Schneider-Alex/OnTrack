@@ -3,11 +3,12 @@
     <div class="menu-login font-light border-radius">
         <h2>Add Time</h2>
     </div>
-<form action="/create/new/time" method="post" class="d-flex justify-content-between align-items-center menu-login border-radius">
+<form action="/create/new/time" method="post" class="menu-login border-radius">
     <input type="hidden" name="coach_id" id="" value="{{session.coach_id}}" />
     <hr class="mb-4" />
     <label for="relay">relay:</label>
     <input type="checkbox" name="relay" value="Relay" id="relay_check" />
+    
 
     <!-- option 1:  have selects already here, just with a hidden class -->
     <!-- option 2: have two ids to target out loop = selects,  inner = options -->
@@ -28,6 +29,7 @@
         </select>
     {#% endfor %#}
     <!-- need option to display multiple athletes, Use JS -->
+    <br/>
     <label
         >Event:
         <select name="event_id" id="">
@@ -42,7 +44,7 @@
         <label >Minutes:
             <input type="number" name="minutes" value="0">
         </label>
-        <label for="">
+        <label for="time">
             Seconds:
         <input
             type="number"
